@@ -125,6 +125,11 @@ namespace Common
         public short port;
         public string asset_path;
         public List<string> scenes;
+        public string db_host;
+        public short db_port;
+        public string db_username;
+        public string db_password;
+        public string db_dbname;
     }
 }
 

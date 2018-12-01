@@ -14,7 +14,7 @@ namespace Backend.Network
             response.token = request.user;
             response.scene = scene;
             channel.Send(response);
-
+            System.Console.WriteLine("Login");
             Player player = new Player(channel);
             player.scene = scene;
             // TODO read from database
