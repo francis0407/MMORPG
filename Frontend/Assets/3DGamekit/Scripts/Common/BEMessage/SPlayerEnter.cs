@@ -9,5 +9,13 @@ namespace Common
         public string user;
         public string token;
         public string scene;
+        public enum Status
+        {
+            Fail,
+            Success,
+            Error
+        }
+        public Status status;
+        
     }
 }

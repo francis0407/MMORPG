@@ -9,6 +9,7 @@ namespace Common
     {
         NONE,
         SBEGIN = 0,
+        S_PLAYER_REGISTER,
         S_PLAYER_ENTER,
         S_ITEM_SPAWN,
         S_SPAWN,

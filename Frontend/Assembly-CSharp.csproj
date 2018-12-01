@@ -171,6 +171,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerReSpawn.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerTake.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SRegister.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SSpawn.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SSpriteDie.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SSpriteMove.cs" />
@@ -359,6 +360,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerEnter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerReSpawn.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvRegister.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvSpawn.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvSpriteMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvTakeItem.cs" />

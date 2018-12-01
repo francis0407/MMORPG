@@ -33,6 +33,7 @@ namespace Gamekit3D.Network
             register.Register(Command.S_TIP_INFO, OnRecvTipInfo);
             register.Register(Command.S_PLAYER_DIE, OnRecvPlayerDie);
             register.Register(Command.S_PLAYER_RESPAWN, OnRecvPlayerReSpawn);
+            register.Register(Command.S_PLAYER_REGISTER, OnRecvRegister);
 
             // DEBUG ...
             register.Register(Command.S_FIND_PATH, OnRecvFindPath);
