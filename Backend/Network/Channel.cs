@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Runtime.Serialization.Formatters.Binary;
 using Common;
-
+using Backend.Game;
 namespace Backend.Network
 {
     // State object for reading client data asynchronously
@@ -81,7 +81,17 @@ namespace Backend.Network
             {
                 return;
             }
+            // Broundcast to all players
+            Player player = (Player)GetContent();
 
+            if (player != null)
+            {
+                SOtherPlayerExit msg = new SOtherPlayerExit();
+                msg.id = player.entityId;
+                msg.user = player.user;
+                msg.scene = player.scene;
+                World.Instance.Broundcast(msg);
+            }
             foreach (ChannelDelegate @d in m_onClose)
             {
                 CompleteEvent e = new CompleteEvent();

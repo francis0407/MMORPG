@@ -34,7 +34,10 @@ namespace Gamekit3D.Network
             register.Register(Command.S_PLAYER_DIE, OnRecvPlayerDie);
             register.Register(Command.S_PLAYER_RESPAWN, OnRecvPlayerReSpawn);
             register.Register(Command.S_PLAYER_REGISTER, OnRecvRegister);
-
+            register.Register(Command.S_OTHER_PLAYER_ENTER, OnRecvOtherPlayerEnter);
+            register.Register(Command.S_OTHER_PLAYER_EXIT, OnRecvOtherPlayerExit);
+            register.Register(Command.S_ONLINE_PLAYERS, OnRecvOnlinePlayers);
+            register.Register(Command.S_CHAT_MESSAGE, OnRecvChatMessage);
             // DEBUG ...
             register.Register(Command.S_FIND_PATH, OnRecvFindPath);
         }

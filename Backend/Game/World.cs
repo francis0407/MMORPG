@@ -20,6 +20,9 @@ namespace Backend.Game
         public Dictionary<string, DEntity> EntityData { get { return data; } }
 
         private Queue<KeyValuePair<DateTime, OnTimer>> m_timers = new Queue<KeyValuePair<DateTime, OnTimer>>();
+
+        public Dictionary<string, Scene> Scenes { get{ return scenes; }}
+
         public void Tick()
         {
             foreach (KeyValuePair<string, Scene> kv in scenes)

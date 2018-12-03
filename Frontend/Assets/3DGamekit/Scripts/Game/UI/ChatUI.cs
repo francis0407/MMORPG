@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Gamekit3D;
-
+using FrontEnd;
+using Common;
 public class ChatUI : MonoBehaviour
 {
 
@@ -12,11 +13,25 @@ public class ChatUI : MonoBehaviour
     public GameObject myMessage;
     public GameObject friendMessage;
 
-
+    private string friendName;
+    private int friendId;
+    private int msgCount = 0;
+    private List<GameObject> messageObjects = new List<GameObject>();
+    private List<ChatEntry> messages = null;
     // my message info content layout | ----------------- message text | image |
     // friend's info content layout   | image | message text ----------------- |
 
-
+    
+    public void setFriendName(string name)
+    {
+        friendName = name;
+        var player = WorldPlayers.Instance.players[friendName];
+        messages = ChatHistory.Instance.history[player];
+        friendId = player;
+        Debug.Log(string.Format("Set Friend Name {0}", name));
+        if (messages == null)
+            Debug.Log("message = null");
+    }
     private void Awake()
     {
         myMessage.SetActive(false);
@@ -25,23 +40,44 @@ public class ChatUI : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Test();
+        
+        //Test();
     }
 
     private void OnEnable()
-    {
+    {   
         PlayerMyController.Instance.EnabledWindowCount++;
+        if (friendName == null)
+            return;
     }
 
     private void OnDisable()
     {
         PlayerMyController.Instance.EnabledWindowCount--;
+        friendName = null;
+        messages = null;
+        foreach (var msgOb in messageObjects)
+            msgOb.SetActive(false);
+        messageObjects.Clear();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (messages == null)
+            return;
+        if (messages.Count > messageObjects.Count)
+        {
+            for (int i = messageObjects.Count; i < messages.Count; i++)
+            {
+                var msg = messages[i];
+                if (msg.self)
+                    SendMyMessage(msg.message);
+                else
+                    ReceiveFriendMessage(msg.message);
+            }
+        }
     }
 
     public void ReceiveFriendMessage(string text)
@@ -54,6 +90,7 @@ public class ChatUI : MonoBehaviour
             return;
         cloned.SetActive(true);
         AddElement(cloned, text);
+        messageObjects.Add(cloned);
     }
 
     public void SendMyMessage(string text)
@@ -66,6 +103,13 @@ public class ChatUI : MonoBehaviour
             return;
         cloned.SetActive(true);
         AddElement(cloned, text);
+        messageObjects.Add(cloned);
+        CChatMessage msg = new CChatMessage();
+        msg.from = WorldPlayers.Instance.selfId;
+        msg.to = friendId;
+        msg.message = text;
+        
+        Gamekit3D.Network.Client.Instance.Send(msg);
     }
 
     public void OnSendButtonClick(GameObject inputField)
@@ -78,8 +122,8 @@ public class ChatUI : MonoBehaviour
             return;
 
 
-        SendMyMessage(input.text);
-
+        //SendMyMessage(input.text);
+        messages.Add(new ChatEntry(true, input.text));
         input.text = "";
     }
 

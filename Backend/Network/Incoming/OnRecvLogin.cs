@@ -24,23 +24,27 @@ namespace Backend.Network
             }
             reader.Close();
 
-            
+
+            Player player = new Player(channel);
 
             string scene = "Level1";
             response.user = request.user;
             response.token = request.user;
+            response.id = player.entityId; 
             response.scene = scene;
             response.status = SPlayerEnter.Status.Success;
             channel.Send(response);
 
             Console.WriteLine("User {0} login", request.user);
 
-            Player player = new Player(channel);
+            
+            
             player.scene = scene;
             // TODO read from database
             DEntity dentity = World.Instance.EntityData["Ellen"];
             player.FromDEntity(dentity);
             player.forClone = false;
+            player.token = response.user;
 
             //ClientTipInfo(channel, "TODO: get player's attribute from database");
             // player will be added to scene when receive client's CEnterSceneDone message

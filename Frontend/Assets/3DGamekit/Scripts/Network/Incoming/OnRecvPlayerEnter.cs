@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-
+using FrontEnd;
 namespace Gamekit3D.Network
 {
     public partial class Incoming
@@ -30,7 +30,7 @@ namespace Gamekit3D.Network
                 return;
             }
             //Console.WriteLine("Receive Enter...");
-            
+            WorldPlayers.Instance.selfId = msg.id;
             startup.PlayerEnter(msg.scene);
         }
     }
