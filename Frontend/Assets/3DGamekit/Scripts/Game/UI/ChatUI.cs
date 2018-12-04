@@ -25,8 +25,8 @@ public class ChatUI : MonoBehaviour
     public void setFriendName(string name)
     {
         friendName = name;
-        var player = WorldPlayers.Instance.players[friendName];
-        messages = ChatHistory.Instance.history[player];
+        var player = World.Instance.players[friendName];
+        messages = World.Instance.chatHistory[player];
         friendId = player;
         Debug.Log(string.Format("Set Friend Name {0}", name));
         if (messages == null)
@@ -105,7 +105,7 @@ public class ChatUI : MonoBehaviour
         AddElement(cloned, text);
         messageObjects.Add(cloned);
         CChatMessage msg = new CChatMessage();
-        msg.from = WorldPlayers.Instance.selfId;
+        msg.from = World.Instance.selfId;
         msg.to = friendId;
         msg.message = text;
         

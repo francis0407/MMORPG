@@ -15,12 +15,8 @@ namespace Backend.Network
             CRegister request = message as CRegister;
             SRegister response = new SRegister(); 
             // ClientTipInfo(channel, "TODO: write register info to database");
-
-            //Console.WriteLine("Register {0}, {1}", request.user, request.password);
-            var cmd = GameDataBase.Instance.GetCmd();
-            cmd.CommandText = string.Format("Select username from \"Account\" where username='{0}';", request.user);
-            Console.WriteLine(cmd.CommandText);
-            var readers = cmd.ExecuteReader();
+          
+            var readers = GameDataBase.SQLQuery(string.Format("Select username from \"Account\" where username='{0}';", request.user));
             if (readers.Read())
             {
                 // same username
@@ -32,10 +28,7 @@ namespace Backend.Network
             }
             readers.Close();
 
-            var cmd2 = GameDataBase.Instance.GetCmd();
-            cmd2.CommandText = string.Format("Insert Into \"Account\"(username, password) Values('{0}','{1}');", request.user, request.password);
-            var res = cmd2.ExecuteNonQuery();
-
+            var res = GameDataBase.SQLNoneQuery(string.Format("Insert Into \"Account\"(username, password) Values('{0}','{1}');", request.user, request.password));
             if (res > 0)
                 response.status = SRegister.Status.Success;
             else

@@ -4,13 +4,13 @@ using System.Text;
 using Npgsql;
 namespace Backend.DataBase
 {
-    class GameDataBase:Singleton<GameDataBase>
+    class GameDataBase
     {
-        // public const string connString = "Host=localhost;Port=5432;Username=postgres;Password=123456;Database=Game-1.0-dev";
-        public NpgsqlConnection conn = null;
-        public bool Connect(string connString)
+        static private string connString = "Host=localhost;Port=5432;Username=postgres;Password=123456;Database=Game-1.0-dev";
+        //public NpgsqlConnection conn = null;
+        static public bool Connect(string _connString)
         {
-            conn = new NpgsqlConnection(connString);                       
+            var conn = new NpgsqlConnection(_connString);                       
             try
             {
                 conn.Open();
@@ -19,15 +19,16 @@ namespace Backend.DataBase
             {
                 return false;
             }
+            connString = _connString;
             return true;
         }
-        public bool Connect(string host, short port, string username, string password, string dbname)
+
+        static public bool Connect(string host, short port, string username, string password, string dbname)
         {
-            string connString = string.Format(
+            string _connString = string.Format(
                 "Host={0};Port={1};Username={2};Password={3};Database={4}",
                 host, port, username, password, dbname);
-
-            conn = new NpgsqlConnection(connString);
+            var conn = new NpgsqlConnection(_connString);
             try
             {
                 conn.Open();
@@ -36,14 +37,29 @@ namespace Backend.DataBase
             {
                 return false;
             }
+            connString = _connString;
             return true;
-
-
         }
-        public NpgsqlCommand GetCmd()
+
+        static public NpgsqlCommand GetCmd()
         {
+            var conn = new NpgsqlConnection(connString);
+            conn.Open();
             return conn.CreateCommand();
         }
-   
+
+        static public int SQLNoneQuery(string sql)
+        {
+            var cmd = GetCmd();
+            cmd.CommandText = sql;
+            return cmd.ExecuteNonQuery();
+        }
+
+        static public NpgsqlDataReader SQLQuery(string sql)
+        {
+            var cmd = GetCmd();
+            cmd.CommandText = sql;
+            return cmd.ExecuteReader();
+        }
     }
 }

@@ -14,8 +14,8 @@ namespace Gamekit3D.Network
             SOtherPlayerEnter request = message as SOtherPlayerEnter;
             Debug.Log(string.Format("Player {0} enter", request.user));
 
-            WorldPlayers.Instance.players.Add(request.user, request.id);
-            ChatHistory.Instance.history.Add(request.id, new List<ChatEntry>());
+            World.Instance.players.Add(request.user, request.id);
+            World.Instance.chatHistory.Add(request.id, new List<ChatEntry>());
             //FriendUI friendui = (FriendUI)GameObject.FindGameObjectWithTag("FriedUI");
             //FriendUI friendui =  GameObject.FindObjectOfType<FriendUI>();
             //friendui.AddPlayer(request.user);

@@ -22,8 +22,8 @@ class Program
         StreamReader reader = new StreamReader(confPath);
         BackendConf conf = (BackendConf)serializer.Deserialize(reader);
 
-        var db = GameDataBase.Instance;
-        if (!db.Connect(conf.db_host, conf.db_port, conf.db_username, conf.db_password, conf.db_dbname))
+        
+        if (!GameDataBase.Connect(conf.db_host, conf.db_port, conf.db_username, conf.db_password, conf.db_dbname))
         {
             System.Console.WriteLine("Can't connect to the database");
             return 0;

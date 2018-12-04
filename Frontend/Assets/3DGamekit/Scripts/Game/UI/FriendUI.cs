@@ -48,7 +48,7 @@ public class FriendUI : MonoBehaviour
         //    text.text = i.ToString();
         //    //OnlinePlayers.Add(cloned);
         //}
-        var players = WorldPlayers.Instance.players;
+        var players = World.Instance.players;
         foreach(var player in players)
         {
             GameObject cloned = GameObject.Instantiate(FriendInfo);

@@ -11,7 +11,7 @@ namespace Gamekit3D.Network
         {
             SChatMessage msg = message as SChatMessage;
             Debug.Log(string.Format("Get friend message {0} {1}", msg.from, msg.message));
-            ChatHistory.Instance.history[msg.from].Add(new ChatEntry(false, msg.message));
+            World.Instance.chatHistory[msg.from].Add(new ChatEntry(false, msg.message));
         }
     }
 }

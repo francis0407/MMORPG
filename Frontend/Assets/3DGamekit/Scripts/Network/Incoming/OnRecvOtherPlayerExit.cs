@@ -10,7 +10,7 @@ namespace Gamekit3D.Network
         private void OnRecvOtherPlayerExit(IChannel channel, Message message)
         {
             SOtherPlayerExit request = message as SOtherPlayerExit;
-            WorldPlayers.Instance.players.Remove(request.user);
+            World.Instance.players.Remove(request.user);
             Debug.Log(string.Format("Player {0} exit.", request.user));
         }
     }

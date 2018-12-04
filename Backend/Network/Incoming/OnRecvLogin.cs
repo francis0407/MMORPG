@@ -12,9 +12,9 @@ namespace Backend.Network
             CLogin request = message as CLogin;
             SPlayerEnter response = new SPlayerEnter();
 
-            var cmd = GameDataBase.Instance.GetCmd();
-            cmd.CommandText = string.Format("Select * from \"Account\" where username='{0}' and password='{1}';", request.user, request.password);
-            var reader = cmd.ExecuteReader();
+            var reader = GameDataBase.SQLQuery(string.Format(
+                "Select * from \"Account\" where username='{0}' and password='{1}';", request.user, request.password
+            ));
             if (!reader.Read())
             {
                 reader.Close();
