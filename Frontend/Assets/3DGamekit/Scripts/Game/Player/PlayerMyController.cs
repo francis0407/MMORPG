@@ -201,6 +201,18 @@ namespace Gamekit3D
             MyNetwork.Send(msg);
         }
 
+        public void PlayerTakeItem()
+        {
+            CCreateItem msg = new CCreateItem();
+            Debug.Log("Take item");
+            int count = FrontEnd.World.Instance.fPlayer.inventory.Count;
+            if (count >= FrontEnd.World.Instance.fPlayer.inventory_max)
+                MessageBox.Show("Can't get more Items.");
+            else
+                MyNetwork.Send(msg);
+        }
+
+        
         public void SendJumpingAction()
         {
             CPlayerJump action = new CPlayerJump();

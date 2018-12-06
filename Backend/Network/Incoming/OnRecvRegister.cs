@@ -16,23 +16,48 @@ namespace Backend.Network
             SRegister response = new SRegister(); 
             // ClientTipInfo(channel, "TODO: write register info to database");
           
-            var readers = GameDataBase.SQLQuery(string.Format("Select username from \"Account\" where username='{0}';", request.user));
-            if (readers.Read())
+            var hasAccount = GameDataBase.SQLQueryScalar(string.Format("Select username from Account where username='{0}';", request.user));
+            if (hasAccount != null)
             {
                 // same username
-                readers.Close();
                 response.status = SRegister.Status.Fail;
                 channel.Send(response);
-
                 return;
             }
-            readers.Close();
 
-            var res = GameDataBase.SQLNoneQuery(string.Format("Insert Into \"Account\"(username, password) Values('{0}','{1}');", request.user, request.password));
-            if (res > 0)
-                response.status = SRegister.Status.Success;
-            else
+            // using transaction to create account
+            var conn = GameDataBase.GetConnection();
+            var trans = conn.BeginTransaction();
+            var accountInsert = conn.CreateCommand();
+            accountInsert.CommandText = "Insert Into Account(account_id, username, password) Values(DEFAULT, @username, @password) Returning account_id;";
+            accountInsert.Parameters.AddWithValue("username", request.user);
+            accountInsert.Parameters.AddWithValue("password", request.password);
+            var account_id = accountInsert.ExecuteScalar();
+            if (account_id == null)
+            {
+                // Register Fail
+                trans.Rollback();
                 response.status = SRegister.Status.Error;
+                channel.Send(response);
+                return;
+            }
+
+            var playerInsert = conn.CreateCommand();
+            playerInsert.CommandText = "Insert Into Player(player_id, account_id) Values(DEFAULT, @account_id)";
+            playerInsert.Parameters.AddWithValue("account_id", (int)account_id);
+            var res = playerInsert.ExecuteNonQuery();
+            if (res > 0)
+            {
+                // Success
+                trans.Commit();
+                response.status = SRegister.Status.Success;
+            }
+            else
+            {
+                // Fail
+                trans.Rollback();
+                response.status = SRegister.Status.Error;
+            }
             channel.Send(response);
             return;
         }

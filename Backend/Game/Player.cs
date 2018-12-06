@@ -9,6 +9,7 @@ namespace Backend.Game
         public IChannel connection;
         public string user;
         public string token;
+        public int player_id;
         private Weapon m_weapon;
 
         public Weapon Weapon { get { return m_weapon; } }

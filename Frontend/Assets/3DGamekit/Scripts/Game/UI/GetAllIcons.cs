@@ -6,7 +6,6 @@ public class GetAllIcons : MonoBehaviour
 {
 
     public static Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
-
     // Use this for initialization
     void Awake()
     {

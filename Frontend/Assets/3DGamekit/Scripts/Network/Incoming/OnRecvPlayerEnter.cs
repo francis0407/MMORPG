@@ -30,7 +30,7 @@ namespace Gamekit3D.Network
                 return;
             }
             //Console.WriteLine("Receive Enter...");
-            WorldPlayers.Instance.selfId = msg.id;
+            World.Instance.selfId = msg.id;
             startup.PlayerEnter(msg.scene);
         }
     }

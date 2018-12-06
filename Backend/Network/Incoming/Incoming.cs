@@ -24,6 +24,10 @@ namespace Backend.Network
             register.Register(Command.C_ENEMY_CLOSING, OnRecvEnemyClosing);
             register.Register(Command.C_DAMAGE, OnRecvDamage);
             register.Register(Command.C_CHAT_MESSAGE, OnRecvChatMessage);
+            register.Register(Command.C_CREATE_ITEM, OnRecvPlayerTakeItem);
+            register.Register(Command.C_PLAYER_EQUIP_ITEM, OnRecvPlayerEquipItem);
+            register.Register(Command.C_PLAYER_UNEQUIP_ITEM, OnRecvPlayerUnEquipItem);
+            register.Register(Command.C_PLAYER_DROP_ITEM, OnRecvPlayerDropItem);
             // DEBUG ..
             register.Register(Command.C_FIND_PATH, OnRecvFindPath);
 

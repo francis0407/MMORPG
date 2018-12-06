@@ -41,6 +41,13 @@ namespace Backend.DataBase
             return true;
         }
 
+        static public NpgsqlConnection GetConnection()
+        {
+            var conn = new NpgsqlConnection(connString);
+            conn.Open();
+            return conn;
+        }
+
         static public NpgsqlCommand GetCmd()
         {
             var conn = new NpgsqlConnection(connString);
@@ -60,6 +67,13 @@ namespace Backend.DataBase
             var cmd = GetCmd();
             cmd.CommandText = sql;
             return cmd.ExecuteReader();
+        }
+
+        static public Object SQLQueryScalar(string sql)
+        {
+            var cmd = GetCmd();
+            cmd.CommandText = sql;
+            return cmd.ExecuteScalar();
         }
     }
 }

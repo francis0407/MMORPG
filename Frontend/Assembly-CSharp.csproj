@@ -165,6 +165,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SEquipWeapon.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SExit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SFindPath.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SGetItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SHit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SJump.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOnlinePlayers.cs" />
@@ -172,6 +173,8 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOtherPlayerExit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerDie.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerEnter.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerEquipItem.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerInventory.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerReSpawn.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerTake.cs" />
@@ -183,12 +186,14 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\Command.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\Delegate.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CChatMessage.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CCreateItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CDamage.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CEnemyClosing.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CFindPath.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CLogin.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerAttack.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerEnter.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerEquipItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerJump.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerTake.cs" />
@@ -326,6 +331,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\GetAllIcons.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\HealthUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\InventoryUI.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\UI\ItemInfoUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\KeyUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MenuActivityController.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\RoleUI.cs" />
@@ -344,6 +350,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Game\Utility\SnapToGround.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\Utility\StartScreenSpriteOffsetter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\Utility\UIAutoscroll.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\Weapon\ItemTake.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\Weapon\MeleeWeapon.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\Weapon\Projectile.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\Weapon\RangeWeapon.cs" />
@@ -351,6 +358,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Game\Weapon\TimeEffect.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\Weapon\WeaponTake.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\World\ChatHistory.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\World\DItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\World\FItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\World\FPlayer.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\World\World.cs" />
@@ -365,6 +373,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvEquipWeapon.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvExit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvFindPath.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvGetItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvHit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvJump.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvOnlinePlayers.cs" />
@@ -372,6 +381,8 @@
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvOtherPlayerExit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerDie.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerEnter.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerEquipItem.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerInventory.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerReSpawn.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvRegister.cs" />

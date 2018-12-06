@@ -31,6 +31,12 @@ namespace Common
         S_OTHER_PLAYER_EXIT,
         S_ONLINE_PLAYERS,
         S_CHAT_MESSAGE,
+        S_GET_ITEM,
+        S_PLAYER_INVENTORY,
+        S_PLAYER_EQUIP_ITEM,
+        S_PLAYER_UNEQUIP_ITEM,
+        S_PLAYER_DROP_ITEM,
+        S_PLAYER_CHANGE_ITEM,
         SEND,
 
         CBEGIN,
@@ -45,6 +51,11 @@ namespace Common
         C_ENEMY_CLOSING,
         C_DAMAGE,
         C_CHAT_MESSAGE,
+        C_CREATE_ITEM,
+        C_PLAYER_EQUIP_ITEM,
+        C_PLAYER_UNEQUIP_ITEM,
+        C_PLAYER_DROP_ITEM,
+        C_PLAYER_CHANGE_ITEM,
         CEND,
 
         DEBUGGING, // THE FOLLOWING MESSEGES ARE FOR DEBUGGING

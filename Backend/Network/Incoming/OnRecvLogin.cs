@@ -12,21 +12,19 @@ namespace Backend.Network
             CLogin request = message as CLogin;
             SPlayerEnter response = new SPlayerEnter();
 
-            var reader = GameDataBase.SQLQuery(string.Format(
-                "Select * from \"Account\" where username='{0}' and password='{1}';", request.user, request.password
+            var hasUser = GameDataBase.SQLQueryScalar(string.Format(
+                "Select player_id from Player Where account_id IN (Select account_id from Account Where username='{0}' and password='{1}');", request.user, request.password
             ));
-            if (!reader.Read())
+            if (hasUser == null)
             {
-                reader.Close();
                 response.status = SPlayerEnter.Status.Fail;
                 channel.Send(response);
+                Console.WriteLine("Login Fail : {0} {1}", request.user, request.password);
                 return;
             }
-            reader.Close();
-
 
             Player player = new Player(channel);
-
+            player.player_id = (int)hasUser;
             string scene = "Level1";
             response.user = request.user;
             response.token = request.user;
@@ -37,8 +35,6 @@ namespace Backend.Network
 
             Console.WriteLine("User {0} login", request.user);
 
-            
-            
             player.scene = scene;
             // TODO read from database
             DEntity dentity = World.Instance.EntityData["Ellen"];

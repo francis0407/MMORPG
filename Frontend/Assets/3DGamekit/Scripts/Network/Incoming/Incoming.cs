@@ -38,6 +38,12 @@ namespace Gamekit3D.Network
             register.Register(Command.S_OTHER_PLAYER_EXIT, OnRecvOtherPlayerExit);
             register.Register(Command.S_ONLINE_PLAYERS, OnRecvOnlinePlayers);
             register.Register(Command.S_CHAT_MESSAGE, OnRecvChatMessage);
+            register.Register(Command.S_GET_ITEM, OnRecvGetItem);
+            register.Register(Command.S_PLAYER_INVENTORY, OnRecvPlayerInventory);
+            register.Register(Command.S_PLAYER_EQUIP_ITEM, OnRecvPlayerEquipItem);
+            register.Register(Command.S_PLAYER_CHANGE_ITEM, OnRecvPlayerChangeItem);
+            register.Register(Command.S_PLAYER_UNEQUIP_ITEM, OnRecvPlayerUnEquipItem);
+            register.Register(Command.S_PLAYER_DROP_ITEM, OnRecvPlayerDropItem);
             // DEBUG ...
             register.Register(Command.S_FIND_PATH, OnRecvFindPath);
         }

@@ -1,7 +1,8 @@
 ﻿using Common;
 using Backend.Game;
 using System.Collections.Generic;
-
+using Backend.DataBase;
+using FrontEnd.Item;
 namespace Backend.Network
 {
     public partial class Incoming
@@ -40,7 +41,36 @@ namespace Backend.Network
 
             channel.Send(onlinePlayers);
 
+            // get all items
+            SPlayerInventory inventory = new SPlayerInventory();
+            var reader = GameDataBase.SQLQuery(string.Format(
+                "Select * from item where player_id={0};", player.player_id
+                ));
+            List<DItem> items = new List<DItem>();
+            while (reader.Read())
+            {
+                var item = new DItem();
+                item.item_id = reader.GetInt32(0);
+                item.status = (ItemStatus)System.Enum.Parse(typeof(ItemStatus), reader.GetString(2));
+                item.name = reader.GetString(3);
+                item.health_value = reader.GetInt32(4);
+                item.speed_value = reader.GetInt32(5);
+                item.damage_value = reader.GetInt32(6);
+                item.intelligence_value = reader.GetInt32(7);
+                item.defence_value = reader.GetInt32(8);
+                item.icon_name = reader.GetString(9);
+                item.item_type = (ItemType)System.Enum.Parse(typeof(ItemType), reader.GetString(10));
+
+                if (item.status != ItemStatus.Drop) 
+                    items.Add(item);
+            }
+            reader.Close();
+            inventory.dItems = items.ToArray();
+            channel.Send(inventory);
+
             System.Console.WriteLine("{0} Enter", player.token);
+            System.Console.WriteLine("Get items {0}", items.Count);
+
             player.Spawn();
             scene.AddEntity(player);
 

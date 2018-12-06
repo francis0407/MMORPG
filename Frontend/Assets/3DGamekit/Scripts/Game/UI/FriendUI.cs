@@ -33,7 +33,7 @@ public class FriendUI : MonoBehaviour
     {
        // Debug.Log(this.name);
         Debug.Log("Start FriendUI");
-       // Test();
+        Test();
     }
 
     private void OnEnable()
@@ -65,7 +65,7 @@ public class FriendUI : MonoBehaviour
     private void OnDisable()
     {
         foreach (var obj in OnlinePlayers)
-            obj.SetActive(false);
+            GameObject.Destroy(obj);
         OnlinePlayers.Clear();
         Debug.Log("Disable FriendUI");
         PlayerMyController.Instance.EnabledWindowCount--;

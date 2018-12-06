@@ -18,7 +18,7 @@ namespace Backend.Network
                 return;
             }
 
-            Item item = (Item)target;
+            Item item = target as Item;
             player.TakeItem(item);
         }
     }

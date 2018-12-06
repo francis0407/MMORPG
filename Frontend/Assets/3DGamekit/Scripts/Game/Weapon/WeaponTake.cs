@@ -10,6 +10,7 @@ namespace Gamekit3D
     {
         public UnityEvent OnEnter, OnExit;
         public GameObject weapon;
+        static private bool hasTaken = false;
         void Reset()
         {
 
@@ -22,14 +23,16 @@ namespace Gamekit3D
 
         protected virtual void ExecuteOnEnter(Collider other)
         {
-
+            if (hasTaken)
+                return;
             PlayerMyController sender = other.GetComponent<PlayerMyController>();
             if (sender == null)
             {
                 return;
             }
-            sender.PlayerTakeWeapon(weapon);
-            OnEnter.Invoke();
+            //sender.PlayerTakeWeapon(weapon);
+            sender.PlayerTakeItem();
+            //OnEnter.Invoke();
         }
 
         void OnTriggerExit(Collider other)
