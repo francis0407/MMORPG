@@ -37,6 +37,7 @@ namespace Common
         S_PLAYER_UNEQUIP_ITEM,
         S_PLAYER_DROP_ITEM,
         S_PLAYER_CHANGE_ITEM,
+        S_PLAYER_USE_ITEM,
         SEND,
 
         CBEGIN,
@@ -56,6 +57,7 @@ namespace Common
         C_PLAYER_UNEQUIP_ITEM,
         C_PLAYER_DROP_ITEM,
         C_PLAYER_CHANGE_ITEM,
+        C_PLAYER_USE_ITEM,
         CEND,
 
         DEBUGGING, // THE FOLLOWING MESSEGES ARE FOR DEBUGGING

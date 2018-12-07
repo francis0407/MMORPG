@@ -46,6 +46,7 @@ public class RoleUI : MonoBehaviour
         var player = World.Instance.fPlayer;
         foreach(var item in WearingObjects)
         {
+            item.Value.GetComponent<Button>().onClick.RemoveAllListeners();
             item.Value.GetComponent<Image>().sprite = IconBackGround;
         }
         foreach(var item in player.wearing)

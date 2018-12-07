@@ -29,5 +29,11 @@ namespace Gamekit3D.Network
             World.Instance.fPlayer.UnEquipItem(msg.old_id);
             World.Instance.fPlayer.EquipItem(msg.new_id);
         }
+
+        private void OnRecvPlayerUserItem(IChannel channel, Message message)
+        {
+            SPlayerUseItem msg = message as SPlayerUseItem;
+            World.Instance.fPlayer.UseItem(msg.item_id);
+        }
     }
 }

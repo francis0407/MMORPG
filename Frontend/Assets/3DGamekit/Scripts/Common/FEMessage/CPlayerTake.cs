@@ -1,16 +1,7 @@
 ﻿using System;
 namespace Common
 {
-    public enum ItemType
-    {
-        WEAPON,
-        Helmet,
-        Armour,
-        Leftweapon,
-        Rightweapon,
-        Legging,
-        Shoes
-    }
+   
     [Serializable]
     public class CPlayerTake : Message
     {

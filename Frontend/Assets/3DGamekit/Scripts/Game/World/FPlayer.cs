@@ -22,13 +22,32 @@ namespace FrontEnd
         public int intelligence;
         public int defence;
 
+        public int base_health;
+        public int base_speed;
+        public int base_damage;
+        public int base_intelligence;
+        public int base_defence;
+
+        public void CreateItem()
+        {
+            CCreateItem msg = new CCreateItem();
+            Debug.Log("Take item");
+            refreshAttr();
+            msg.luck = intelligence;
+            int count = inventory.Count;
+            if (count >= inventory_max)
+                MessageBox.Show("Can't get more Items.");
+            else
+                MyNetwork.Send(msg);
+        }
+
         public void refreshAttr()
         {
-            health = 1;
-            speed = 1;
-            damage = 1;
-            intelligence = 1;
-            defence = 1;
+            health = base_health;
+            speed = base_speed;
+            damage = base_damage;
+            intelligence = base_intelligence;
+            defence = base_defence;
             foreach (var item in wearing) { 
                 health += item.Value.health_value;
                 speed += item.Value.speed_value;
@@ -120,6 +139,13 @@ namespace FrontEnd
             var inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
             if (inventoryUI != null)
                 inventoryUI.RefreshItems();
+        }
+
+        public void UseItem(int item_id)
+        {
+            var item = inventory[item_id];
+            
+            
         }
     }
 }

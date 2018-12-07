@@ -28,6 +28,8 @@ namespace Backend.Network
             register.Register(Command.C_PLAYER_EQUIP_ITEM, OnRecvPlayerEquipItem);
             register.Register(Command.C_PLAYER_UNEQUIP_ITEM, OnRecvPlayerUnEquipItem);
             register.Register(Command.C_PLAYER_DROP_ITEM, OnRecvPlayerDropItem);
+            register.Register(Command.C_PLAYER_CHANGE_ITEM, OnRecvPlayerChangeItem);
+            register.Register(Command.C_PLAYER_USE_ITEM, OnRecvPlayerUseItem);
             // DEBUG ..
             register.Register(Command.C_FIND_PATH, OnRecvFindPath);
 

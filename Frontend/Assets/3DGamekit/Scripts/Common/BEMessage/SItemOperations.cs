@@ -33,4 +33,11 @@ namespace Common
         public int old_id;
         public int new_id;
     }
+
+    [Serializable]
+    public class SPlayerUseItem : Message
+    {
+        public SPlayerUseItem() : bash(Command.S_PLAYER_USE_ITEM) { }
+        public int item_id;
+    }
 }

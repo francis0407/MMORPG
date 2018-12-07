@@ -29,4 +29,11 @@ namespace Common
         public int old_id;
         public int new_id;
     }
+
+    [Serializable]
+    public class CPlayerUseItem : Message
+    {
+        public CPlayerUseItem() : base(Command.C_PLAYER_USE_ITEM) { }
+        public int item_id;
+    }
 }

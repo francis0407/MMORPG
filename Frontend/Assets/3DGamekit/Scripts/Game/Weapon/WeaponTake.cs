@@ -25,14 +25,16 @@ namespace Gamekit3D
         {
             if (hasTaken)
                 return;
-            PlayerMyController sender = other.GetComponent<PlayerMyController>();
-            if (sender == null)
-            {
-                return;
-            }
+            //PlayerMyController sender = other.GetComponent<PlayerMyController>();
+            //if (sender == null)
+            //{
+            //    return;
+            //}
             //sender.PlayerTakeWeapon(weapon);
-            sender.PlayerTakeItem();
+            //sender.PlayerTakeItem();
             //OnEnter.Invoke();
+            hasTaken = true;
+            FrontEnd.World.Instance.fPlayer.CreateItem();
         }
 
         void OnTriggerExit(Collider other)

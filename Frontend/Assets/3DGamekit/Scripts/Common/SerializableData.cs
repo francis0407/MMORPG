@@ -131,6 +131,31 @@ namespace Common
         public string db_password;
         public string db_dbname;
     }
+
+    public enum ItemType
+    {
+        WEAPON,
+        Helmet,
+        Armour,
+        Leftweapon,
+        Rightweapon,
+        Legging,
+        Shoes
+    }
+
+    [Serializable]
+    public struct ItemConf
+    {
+        public string name;
+        public string icon;
+        public ItemType type;
+    }
+
+    [Serializable]
+    public struct FrontendConf
+    {
+        public List<ItemConf> item_template;
+    }
 }
 
 
