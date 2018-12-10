@@ -172,6 +172,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOnlinePlayers.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOtherPlayerEnter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOtherPlayerExit.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerAttribute.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerDie.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerEnter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerInventory.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SSpriteDie.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SSpriteMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\STipInfo.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\STmallMessages.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\Command.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\Delegate.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CChatMessage.cs" />
@@ -193,12 +195,14 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CItemOperations.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CLogin.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerAttack.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerAttribute.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerEnter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerJump.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerTake.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPositionRevisecs.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CRegister.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CTmallMessages.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\IChannel.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\IRegister.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\Message.cs" />
@@ -375,13 +379,14 @@
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvFindPath.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvGetItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvHit.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvItemOperations.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvJump.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvOnlinePlayers.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvOtherPlayerEnter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvOtherPlayerExit.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerAttribute.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerDie.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerEnter.cs" />
-    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvItemOperations.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerInventory.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvPlayerReSpawn.cs" />
@@ -390,6 +395,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvSpriteMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvTakeItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvTipInfo.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvTmallFunctions.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\IPlayerBehavior.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\ISpriteBehavior.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\MyNetwork.cs" />
@@ -398,6 +404,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Scripts\SoundTrack.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Scripts\SoundTrackVolume.cs" />
     <Compile Include="Assets\3DGamekit\TutorialInfo\Scripts\Readme.cs" />
+    <None Include="Assets\BEAssets\ItemTemplate.xml" />
     <None Include="Assets\3DGameKit_Third-PartyNotice.txt" />
     <None Include="Assets\3DGamekit\Shaders\Rock.shader" />
     <None Include="Assets\3DGamekit\Packages\ProCore\Polybrush\README.txt" />

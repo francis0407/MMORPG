@@ -38,8 +38,23 @@ namespace Backend.Network
             onlinePlayers.users = names.ToArray();
             onlinePlayers.ids = ids.ToArray();
             onlinePlayers.scenes = scenes_.ToArray();
-
             channel.Send(onlinePlayers);
+
+            // get attributes
+            SPlayerAttribute attribute = new SPlayerAttribute();
+            var attr_reader = GameDataBase.SQLQuery(string.Format(
+                "Select gold, silver, speed, damage, intelligence, defence, health, hp From Player where player_id={0};", player.player_id
+                ));
+            attr_reader.Read();
+            attribute.gold = attr_reader.GetInt32(0);
+            attribute.silver = attr_reader.GetInt32(1);
+            attribute.speed = attr_reader.GetInt32(2);
+            attribute.damage = attr_reader.GetInt32(3);
+            attribute.intelligence = attr_reader.GetInt32(4);
+            attribute.defence = attr_reader.GetInt32(5);
+            attribute.health = attr_reader.GetInt32(6);
+            attribute.hp = attr_reader.GetInt32(7);
+            channel.Send(attribute);
 
             // get all items
             SPlayerInventory inventory = new SPlayerInventory();
@@ -60,7 +75,7 @@ namespace Backend.Network
                 item.defence_value = reader.GetInt32(8);
                 item.icon_name = reader.GetString(9);
                 item.item_type = (ItemType)System.Enum.Parse(typeof(ItemType), reader.GetString(10));
-
+                item.silver_value = reader.GetInt32(11);
                 if (item.status != ItemStatus.Drop) 
                     items.Add(item);
             }

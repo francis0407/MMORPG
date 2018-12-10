@@ -63,7 +63,7 @@ namespace Backend.Network
                     }
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "Update Player Set item_count=item_count-1,silver=silver+@price Where player_id=@player_id;";
+                        cmd.CommandText = "Update Player Set items_count=items_count-1,silver=silver+@price Where player_id=@player_id;";
                         cmd.Parameters.AddWithValue("price", price);
                         cmd.Parameters.AddWithValue("player_id", (channel.GetContent() as Player).player_id);
                         if (cmd.ExecuteNonQuery() != 1)
@@ -173,14 +173,14 @@ namespace Backend.Network
                         {
                             // HP
                             cmd.CommandText = "Update Player Set " +
-                                "item_count=item_count-1, " +
+                                "items_count=items_count-1, " +
                                 "hp=health " +
                                 "Where player_id=@player_id;";
                         }
                         else
                         {
                             cmd.CommandText = "Update Player Set " +
-                                "item_count=item_count-1, " +
+                                "items_count=items_count-1, " +
                                 "health=health+@health_value, " +
                                 "speed=speed+@speed_value, " +
                                 "damage=damage+@damage_value, " +

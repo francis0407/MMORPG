@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using Common;
 
 namespace Common
@@ -134,13 +135,23 @@ namespace Common
 
     public enum ItemType
     {
+        [XmlEnum(Name = "WEAPON")]
         WEAPON,
+        [XmlEnum(Name = "Helmet")]
         Helmet,
+        [XmlEnum(Name = "Armour")]
         Armour,
+        [XmlEnum(Name = "Leftweapon")]
         Leftweapon,
+        [XmlEnum(Name = "Rightweapon")]
         Rightweapon,
+        [XmlEnum(Name = "Legging")]
         Legging,
-        Shoes
+        [XmlEnum(Name = "Shoes")]
+        Shoes,
+        [XmlEnum(Name = "Elixir")]
+        Elixir,
+        Others
     }
 
     [Serializable]
@@ -149,12 +160,31 @@ namespace Common
         public string name;
         public string icon;
         public ItemType type;
+        public string typeString
+        {
+            get { return type.ToString(); }
+            set { type = (ItemType)System.Enum.Parse(typeof(ItemType), value); }
+        }
+
     }
 
     [Serializable]
     public struct FrontendConf
     {
         public List<ItemConf> item_template;
+    }
+
+    public enum CostType
+    {
+        Gold,
+        Silver
+    }
+
+    [Serializable]
+    public struct CostConf
+    {
+        public CostType costType;
+        public int cost;
     }
 }
 

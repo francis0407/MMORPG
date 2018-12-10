@@ -37,7 +37,7 @@ namespace Common
     [Serializable]
     public class SPlayerUseItem : Message
     {
-        public SPlayerUseItem() : bash(Command.S_PLAYER_USE_ITEM) { }
+        public SPlayerUseItem() : base(Command.S_PLAYER_USE_ITEM) { }
         public int item_id;
     }
 }

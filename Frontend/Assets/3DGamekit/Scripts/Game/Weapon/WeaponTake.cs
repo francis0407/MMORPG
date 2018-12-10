@@ -33,6 +33,7 @@ namespace Gamekit3D
             //sender.PlayerTakeWeapon(weapon);
             //sender.PlayerTakeItem();
             //OnEnter.Invoke();
+            Debug.Log("Taking Item");
             hasTaken = true;
             FrontEnd.World.Instance.fPlayer.CreateItem();
         }

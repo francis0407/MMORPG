@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization.Formatters.Binary;
 using Common;
 using UnityEngine;
-
+using Gamekit3D;
 namespace Gamekit3D.Network
 {
     // Client use non-blocking socket, receive synchronously, send asynchronously
@@ -48,6 +48,8 @@ namespace Gamekit3D.Network
 
         public void Send(Message message)
         {
+            if (message.command != Command.C_PLAYER_MOVE)
+                UnityEngine.Debug.Log("Send " + message.command.ToString());
             MemoryStream stream = new MemoryStream();
 
             stream.Seek(Message.MsgHeaderSize, SeekOrigin.Begin);
@@ -131,6 +133,7 @@ namespace Gamekit3D.Network
                 {// finish read a message, deserialize message to a class, invoke message receive callback
                     stream.Seek(0, SeekOrigin.Begin);
                     Message msg = (Message)formatter.Deserialize(stream);
+                    UnityEngine.Debug.Log(string.Format("Message {0}", command.ToString()));
                     try
                     {
                         MessageDelegate @delegate = messageDelegate[command];

@@ -27,6 +27,7 @@ namespace Common
         S_SPRITE_DIE,
         S_PLAYER_DIE,
         S_TIP_INFO,
+        S_PLAYER_ATTRIBUTE,
         S_OTHER_PLAYER_ENTER,
         S_OTHER_PLAYER_EXIT,
         S_ONLINE_PLAYERS,
@@ -38,6 +39,8 @@ namespace Common
         S_PLAYER_DROP_ITEM,
         S_PLAYER_CHANGE_ITEM,
         S_PLAYER_USE_ITEM,
+        S_GET_TMALL_ITEMS,
+        S_BUY_TMALL_ITEMS,
         SEND,
 
         CBEGIN,
@@ -58,6 +61,9 @@ namespace Common
         C_PLAYER_DROP_ITEM,
         C_PLAYER_CHANGE_ITEM,
         C_PLAYER_USE_ITEM,
+        C_PLAYER_ATTRIBUTE,
+        C_GET_TMALL_ITEMS,
+        C_BUY_TMALL_ITEMS,
         CEND,
 
         DEBUGGING, // THE FOLLOWING MESSEGES ARE FOR DEBUGGING

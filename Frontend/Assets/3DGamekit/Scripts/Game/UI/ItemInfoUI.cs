@@ -12,6 +12,7 @@ public class ItemInfoUI : MonoBehaviour
     public GameObject damageValue;
     public GameObject intelligenceValue;
     public GameObject defenceValue;
+    public GameObject silverValue;
 
     public GameObject equipButton;
     public GameObject unEquipButton;
@@ -35,17 +36,22 @@ public class ItemInfoUI : MonoBehaviour
         damageValue.GetComponent<Text>().text =  "+" + item.damage_value.ToString();
         intelligenceValue.GetComponent<Text>().text = "+" + item.intelligence_value.ToString();
         defenceValue.GetComponent<Text>().text = "+" + item.defence_value.ToString();
-
+        silverValue.GetComponent<Text>().text = item.silver_value.ToString();
         if (equip)
         {
             equipButton.SetActive(true);
+            equipButton.GetComponentInChildren<Text>().text = item.item_type == Common.ItemType.Elixir ? "使用" : "装备";
             equipButton.GetComponent<Button>().onClick.RemoveAllListeners();
             equipButton.GetComponent<Button>().onClick.AddListener(delegate() {
                 // equip item
-                World.Instance.fPlayer.SendEquipItem(item_id);
+                if (item.item_type == Common.ItemType.Elixir)
+                    World.Instance.fPlayer.SendUseItem(item_id);
+                else
+                    World.Instance.fPlayer.SendEquipItem(item_id);
                 // GameObject.FindObjectOfType<RoleUI>().RefreshAttr();
                 self.SetActive(false);
             });
+
 
             dropButton.SetActive(true);
             dropButton.GetComponent<Button>().onClick.RemoveAllListeners();

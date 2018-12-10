@@ -44,6 +44,10 @@ namespace Gamekit3D.Network
             register.Register(Command.S_PLAYER_CHANGE_ITEM, OnRecvPlayerChangeItem);
             register.Register(Command.S_PLAYER_UNEQUIP_ITEM, OnRecvPlayerUnEquipItem);
             register.Register(Command.S_PLAYER_DROP_ITEM, OnRecvPlayerDropItem);
+            register.Register(Command.S_PLAYER_USE_ITEM, OnRecvPlayerUseItem);
+            register.Register(Command.S_PLAYER_ATTRIBUTE, OnRecvPlayerAttribute);
+            register.Register(Command.S_GET_TMALL_ITEMS, OnRecvGetTmallItems);
+            register.Register(Command.S_BUY_TMALL_ITEMS, OnRecvBuyTmallItems);
             // DEBUG ...
             register.Register(Command.S_FIND_PATH, OnRecvFindPath);
         }

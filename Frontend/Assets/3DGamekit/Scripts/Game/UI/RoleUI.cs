@@ -15,7 +15,8 @@ public class RoleUI : MonoBehaviour
     public TextMeshProUGUI LevelValue;
     public TextMeshProUGUI AttackValue;
     public TextMeshProUGUI DefenseValue;
-
+    public GameObject GoldValue;
+    public GameObject SilverValue;
     public GameObject Helmet;
     public GameObject Armour;
     public GameObject LeftWeapon;
@@ -33,11 +34,13 @@ public class RoleUI : MonoBehaviour
     {
         var player = World.Instance.fPlayer;
         player.refreshAttr();
-        HPValue.text = player.health.ToString();
+        HPValue.text = player.hp.ToString() + "/" + player.health.ToString();
         InteligenceValue.text = player.intelligence.ToString();
         SpeedValue.text = player.speed.ToString();
         AttackValue.text = player.damage.ToString();
         DefenseValue.text = player.defence.ToString();
+        GoldValue.GetComponent<Text>().text = player.gold.ToString();
+        SilverValue.GetComponent<Text>().text = player.silver.ToString();
     }
 
     public void RefreshAll()
@@ -103,7 +106,7 @@ public class RoleUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        RefreshAttr();
     }
 
     void Test()

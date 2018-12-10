@@ -14,44 +14,68 @@ namespace Backend.Network
             Player player = channel.GetContent() as Player;
 
             DItem item = FItem.CreateRandomItem(request.luck).ToDItem();
-            var conn = GameDataBase.GetConnection();
-            var trans = conn.BeginTransaction();
-            var insert_sql = conn.CreateCommand();
-            insert_sql.CommandText = string.Format(
-                "Insert Into item(item_id, player_id, type, status, name, health_value, " +
-                "speed_value, damage_value, intelligence_value, defence_value, icon)" +
-                "Values(DEFAULT, {0}, '{1}', 'Storing', '{2}', {3}," +
-                "{4}, {5}, {6}, {7}, '{8}') Returning item_id;", 
-                player.player_id, item.item_type.ToString(), item.name,  item.health_value,
-                item.speed_value, item.damage_value, item.intelligence_value, item.defence_value, item.icon_name
-                );
-            var item_id = insert_sql.ExecuteScalar();
-            if (item_id == null)
+            using (var conn = GameDataBase.GetConnection())
             {
-                trans.Rollback();
-                response.success = false;
-                channel.Send(response);
-                return;
-            }
-            item.item_id = (int)item_id;
-            var update_sql = conn.CreateCommand();
-            update_sql.CommandText = string.Format(
-                "Update Player Set items_count=items_count+1 Where player_id={0};", player.player_id);
-            var res = update_sql.ExecuteNonQuery();
-            if (res > 0)
-            {
-                trans.Commit();
-                response.success = true;
-                response.dItem = item;
-                channel.Send(response);
-            }
-            else
-            {
-                trans.Rollback();
-                response.success = false;
-                channel.Send(response);
-            }
-
+                using (var trans = conn.BeginTransaction())
+                {
+                    int item_id;
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Select items_count From Player Where player_id=@player_id And items_count<40;";
+                        cmd.Parameters.AddWithValue("player_id", player.player_id);
+                        var res = cmd.ExecuteScalar();
+                        if (res == null)
+                        {
+                            trans.Rollback();
+                            ClientTipInfo(channel, "Full Inventory! Cannot Get More Items.");
+                            return;
+                        }
+                    }
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Insert Into Item(item_id, player_id, type, status, name," +
+                            "health_value, speed_value, damage_value, intelligence_value, defence_value, icon, silver_value)" +
+                            "Values(DEFAULT, @player_id, '" + item.item_type +"', 'Storing', @name," +
+                            "@health_value, @speed_value, @damage_value, @intelligence_value, @defence_value, @icon, @silver_value) Returning item_id;";
+                        cmd.Parameters.AddWithValue("player_id", player.player_id);
+                        //cmd.Parameters.AddWithValue("type", item.item_type.ToString());
+                        cmd.Parameters.AddWithValue("name", item.name);
+                        cmd.Parameters.AddWithValue("health_value", item.health_value);
+                        cmd.Parameters.AddWithValue("speed_value", item.speed_value);
+                        cmd.Parameters.AddWithValue("damage_value", item.damage_value);
+                        cmd.Parameters.AddWithValue("intelligence_value", item.intelligence_value);
+                        cmd.Parameters.AddWithValue("defence_value", item.defence_value);
+                        cmd.Parameters.AddWithValue("icon", item.icon_name);
+                        cmd.Parameters.AddWithValue("silver_value", item.silver_value);
+                        var res = cmd.ExecuteScalar();
+                        if (res == null)
+                        {
+                            trans.Rollback();
+                            ClientTipInfo(channel, "Fail to pick new item!");
+                            return;
+                        }
+                        item_id = (int)res;
+                    }
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Update Player Set items_count=items_count+1 Where player_id=@player_id;";
+                        cmd.Parameters.AddWithValue("player_id", player.player_id);
+                        var res = cmd.ExecuteNonQuery();
+                        if (res != 1)
+                        {
+                            trans.Rollback();
+                            ClientTipInfo(channel, "Fail to pick new item [2] !");
+                            return;
+                        }
+                    }
+                    trans.Commit();
+                    item.item_id = item_id;
+                    response.success = true;
+                    response.dItem = item;
+                    channel.Send(response);
+                    
+                } // trans
+            } // conn
         }
     }
 }

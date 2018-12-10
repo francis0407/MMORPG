@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Common;
 namespace FrontEnd
 {
     public class ChatEntry
@@ -19,7 +19,7 @@ namespace FrontEnd
         public int selfId;
         public Dictionary<int, List<ChatEntry>> chatHistory = new Dictionary<int, List<ChatEntry>>();
         public FPlayer fPlayer = new FPlayer();
-
+        public List<KeyValuePair<ItemConf, CostConf>> TmallItems;
 
     }
 }

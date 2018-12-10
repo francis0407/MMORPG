@@ -25,5 +25,6 @@ namespace FrontEnd.Item
         public int damage_value;
         public int intelligence_value;
         public int defence_value;
+        public int silver_value;
     }
 }
