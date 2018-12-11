@@ -41,6 +41,9 @@ namespace Common
         S_PLAYER_USE_ITEM,
         S_GET_TMALL_ITEMS,
         S_BUY_TMALL_ITEMS,
+        S_GET_MARKET_ITEMS,
+        S_SELL_MARKET_ITEM,
+        S_BUY_MARKET_ITEM,
         SEND,
 
         CBEGIN,
@@ -64,6 +67,9 @@ namespace Common
         C_PLAYER_ATTRIBUTE,
         C_GET_TMALL_ITEMS,
         C_BUY_TMALL_ITEMS,
+        C_GET_MARKET_ITEMS,
+        C_BUY_MARKET_ITEM,
+        C_SELL_MARKET_ITEM,
         CEND,
 
         DEBUGGING, // THE FOLLOWING MESSEGES ARE FOR DEBUGGING

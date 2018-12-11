@@ -169,6 +169,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SHit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SItemOperations.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SJump.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SMarketMessage.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOnlinePlayers.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOtherPlayerEnter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOtherPlayerExit.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CFindPath.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CItemOperations.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CLogin.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CMarketMessage.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerAttack.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerAttribute.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerEnter.cs" />
@@ -337,6 +339,9 @@
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\InventoryUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\ItemInfoUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\KeyUI.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketBuyViewUI.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketSellViewUI.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketViewUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MenuActivityController.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\RoleUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\SetCursorMode.cs" />

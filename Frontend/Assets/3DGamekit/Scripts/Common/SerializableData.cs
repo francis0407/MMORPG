@@ -186,6 +186,14 @@ namespace Common
         public CostType costType;
         public int cost;
     }
+
+    [Serializable]
+    public struct MarketItem
+    {
+        public FrontEnd.Item.DItem ditem;
+        public int owner_id;
+        public CostConf costConf;
+    }
 }
 
 

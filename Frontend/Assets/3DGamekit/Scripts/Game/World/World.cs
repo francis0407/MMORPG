@@ -20,6 +20,7 @@ namespace FrontEnd
         public Dictionary<int, List<ChatEntry>> chatHistory = new Dictionary<int, List<ChatEntry>>();
         public FPlayer fPlayer = new FPlayer();
         public List<KeyValuePair<ItemConf, CostConf>> TmallItems;
+        public Dictionary<int, MarketItem> MarketItems; 
 
     }
 }
