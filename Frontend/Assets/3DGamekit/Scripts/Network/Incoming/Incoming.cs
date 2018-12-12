@@ -48,6 +48,9 @@ namespace Gamekit3D.Network
             register.Register(Command.S_PLAYER_ATTRIBUTE, OnRecvPlayerAttribute);
             register.Register(Command.S_GET_TMALL_ITEMS, OnRecvGetTmallItems);
             register.Register(Command.S_BUY_TMALL_ITEMS, OnRecvBuyTmallItems);
+            register.Register(Command.S_BUY_MARKET_ITEM, OnRecvBuyMarketItem);
+            register.Register(Command.S_SELL_MARKET_ITEM, OnRecvSellMarketItem);
+            register.Register(Command.S_GET_MARKET_ITEMS, OnRecvGetMarketItems);
             // DEBUG ...
             register.Register(Command.S_FIND_PATH, OnRecvFindPath);
         }

@@ -32,6 +32,9 @@ namespace Backend.Network
             register.Register(Command.C_PLAYER_USE_ITEM, OnRecvPlayerUseItem);
             register.Register(Command.C_GET_TMALL_ITEMS, OnRecvGetTmallItems);
             register.Register(Command.C_BUY_TMALL_ITEMS, OnRecvBuyTmallItems);
+            register.Register(Command.C_BUY_MARKET_ITEM, OnRecvBuyMarketItem);
+            register.Register(Command.C_SELL_MARKET_ITEM, OnRecvSellMarketItem);
+            register.Register(Command.C_GET_MARKET_ITEMS, OnRecvGetMarketItems);
             // DEBUG ..
             register.Register(Command.C_FIND_PATH, OnRecvFindPath);
 

@@ -19,7 +19,7 @@ namespace Backend.Network
                 {
                     cmd.CommandText = 
                         "Select " +
-                        "item_id, seller_id, price_type, price, name, health_value, speed_value, damage_value, intelligence_value, defence_value, icon, type " +
+                        "Item.item_id, seller_id, price_type, price, name, health_value, speed_value, damage_value, intelligence_value, defence_value, icon, type " +
                         "From Market,Item Where valid=true And Market.item_id=Item.item_id;";
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -86,7 +86,7 @@ namespace Backend.Network
                     }
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "Update Market Set valid=false，buyer_id=@player_id Where market_id=@market_id;";
+                        cmd.CommandText = "Update Market Set valid=false, buyer_id=@player_id Where market_id=@market_id;";
                         cmd.Parameters.AddWithValue("market_id", market_id);
                         cmd.Parameters.AddWithValue("player_id", player.player_id);
                         var res = cmd.ExecuteNonQuery();
@@ -115,6 +115,7 @@ namespace Backend.Network
                         cmd.CommandText = "Update Player Set items_count=items_count+1, gold=gold-@gold, silver=silver-@silver Where player_id=@player_id;";
                         cmd.Parameters.AddWithValue("gold", request.item.costConf.costType == CostType.Gold ? request.item.costConf.cost : 0);
                         cmd.Parameters.AddWithValue("silver", request.item.costConf.costType == CostType.Gold ? 0 : request.item.costConf.cost);
+                        cmd.Parameters.AddWithValue("player_id", player.player_id);
                         var res = cmd.ExecuteNonQuery();
                         if (res != 1)
                         {

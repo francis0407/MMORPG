@@ -340,6 +340,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\ItemInfoUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\KeyUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketBuyViewUI.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketItemUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketSellViewUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketViewUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MenuActivityController.cs" />
@@ -386,6 +387,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvHit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvItemOperations.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvJump.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvMarketFunctions.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvOnlinePlayers.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvOtherPlayerEnter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvOtherPlayerExit.cs" />

@@ -136,7 +136,7 @@ public class CartGridUI : MonoBehaviour
             MessageBox.Show("Can't Afford that!");
             return;
         }
-        if (World.Instance.fPlayer.inventory.Count + item_count <= 40)
+        if (World.Instance.fPlayer.inventory.Count + item_count > 40)
         {
             MessageBox.Show("Inventory is FULL!");
             return;

@@ -77,7 +77,7 @@ public class MarketSellViewUI : MonoBehaviour
             Button button = cloned.GetComponentInChildren<Button>();
             Sprite icon = GetAllIcons.icons[kv.Value.icon_name];
             button.image.sprite = icon;
-
+            cloned.GetComponentInChildren<Text>().text = kv.Value.name;
             button.onClick.AddListener(delegate ()
             {
                 ItemInfo.SetActive(true);
