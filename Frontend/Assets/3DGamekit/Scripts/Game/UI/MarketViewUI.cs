@@ -14,7 +14,7 @@ public class MarketViewUI : MonoBehaviour
     public GameObject BuyView;
     public GameObject SellView;
 
-    public bool buying = false;
+    public bool buying = true;
     private void Awake()
     {
     }

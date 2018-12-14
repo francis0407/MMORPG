@@ -38,6 +38,9 @@ namespace Gamekit3D
 
         public void Quit()
         {
+            Common.CPlayerExit msg = new Common.CPlayerExit();
+            Gamekit3D.Network.Client.Instance.Send(msg);
+            Gamekit3D.Network.Client.Instance.Close();
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
 #else

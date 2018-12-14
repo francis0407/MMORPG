@@ -47,8 +47,10 @@ namespace Common
         SEND,
 
         CBEGIN,
+        C_HEART_BEAT,
         C_LOGIN,
         C_REGISTER,
+        C_PLAYER_EXIT,
         C_PLAYER_ENTER,
         C_PLAYER_ATTACK,
         C_PLAYER_JUMP,

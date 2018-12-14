@@ -51,9 +51,31 @@ namespace Backend.Network
 
         private Socket m_socket;
 
+        private System.Timers.Timer timer;
+
+        private int HeartBeat = 0;
         public Channel(Socket socket)
         {
             m_socket = socket;
+            timer = new System.Timers.Timer();
+            timer.Interval = 10000;
+            timer.Elapsed += delegate
+            {
+                this.CheckHeartBeat();
+            };
+            timer.Start();
+        }
+        public void SetHeartBeat()
+        {
+            HeartBeat = (new System.DateTime()).Millisecond;
+        }
+        private void CheckHeartBeat()
+        {
+            System.DateTime time = new System.DateTime();
+            if (time.Millisecond - HeartBeat >= 10000)
+            {
+                Close();
+            }
         }
 
         public void SetContent(Object content)
@@ -81,9 +103,16 @@ namespace Backend.Network
             {
                 return;
             }
+            if (timer != null)
+            {
+                timer.Stop();
+            }
             // Broundcast to all players
+            
             Player player = (Player)GetContent();
-
+            World.Instance.RemoveEntity(player.entityId);
+            World.Instance.OnlinePlayers.Remove(player.player_id);
+            Console.WriteLine("Player {0} {1} exit.", player.player_id, player.entityId);
             if (player != null)
             {
                 SOtherPlayerExit msg = new SOtherPlayerExit();
@@ -92,6 +121,8 @@ namespace Backend.Network
                 msg.scene = player.scene;
                 World.Instance.Broundcast(msg);
             }
+
+
             foreach (ChannelDelegate @d in m_onClose)
             {
                 CompleteEvent e = new CompleteEvent();

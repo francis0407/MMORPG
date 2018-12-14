@@ -166,6 +166,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SExit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SFindPath.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SGetItem.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SHeartBeat.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SHit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SItemOperations.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SJump.cs" />
@@ -193,12 +194,14 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CDamage.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CEnemyClosing.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CFindPath.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CHeartBeat.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CItemOperations.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CLogin.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CMarketMessage.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerAttack.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerAttribute.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerEnter.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerExit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerJump.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPlayerTake.cs" />

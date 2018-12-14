@@ -48,7 +48,7 @@ namespace Gamekit3D.Network
 
         public void Send(Message message)
         {
-            if (message.command != Command.C_PLAYER_MOVE)
+            if (message.command != Command.C_PLAYER_MOVE && message.command != Command.C_HEART_BEAT)
                 UnityEngine.Debug.Log("Send " + message.command.ToString());
             MemoryStream stream = new MemoryStream();
 

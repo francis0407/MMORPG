@@ -91,6 +91,7 @@ public class MarketSellViewUI : MonoBehaviour
                 ItemDamageValue.GetComponent<Text>().text = kv.Value.damage_value.ToString();
                 ItemDefenceValue.GetComponent<Text>().text = kv.Value.defence_value.ToString();
                 ItemPriceButton.GetComponent<Image>().color = new Color(1, 1, 1);
+                this.priceType = CostType.Silver;
             });
             cloned.SetActive(true);
             cloned.transform.SetParent(ShelfGridContent.transform, false);

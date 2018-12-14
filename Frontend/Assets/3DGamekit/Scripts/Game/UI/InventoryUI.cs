@@ -37,6 +37,12 @@ public class InventoryUI : MonoBehaviour
             cloned.SetActive(true);
             cloned.transform.SetParent(InventoryGridContent.transform, false);
         }
+        for (int i = 0; i < 40 - inventory.Count; i++)
+        {
+            GameObject cloned = GameObject.Instantiate(InventoryCell);
+            cloned.SetActive(true);
+            cloned.transform.SetParent(InventoryGridContent.transform, false);
+        }
     }
     private void Awake()
     {
@@ -65,23 +71,23 @@ public class InventoryUI : MonoBehaviour
         //    cloned.SetActive(true);
         //    cloned.transform.SetParent(InventoryGridContent.transform, false);
         //}
-        var inventory = World.Instance.fPlayer.inventory;
-        foreach (var kv in inventory)
-        {
-            GameObject cloned = GameObject.Instantiate(InventoryCell);
-            Button button = cloned.GetComponent<Button>();
-            Sprite icon = GetAllIcons.icons[kv.Value.icon_name];
-            button.image.sprite = icon;
-            
-            button.onClick.AddListener(delegate() {
-                var itemInfoUI = GameObject.FindObjectOfType<ItemInfoUI>();
-                itemInfoUI.ChangeItem(kv.Value, true);
-                //ItemInfo.SetActive(true);
-            });
-            cloned.SetActive(true);
-            cloned.transform.SetParent(InventoryGridContent.transform, false);
-        }
+        //var inventory = World.Instance.fPlayer.inventory;
+        //foreach (var kv in inventory)
+        //{
+        //    GameObject cloned = GameObject.Instantiate(InventoryCell);
+        //    Button button = cloned.GetComponent<Button>();
+        //    Sprite icon = GetAllIcons.icons[kv.Value.icon_name];
+        //    button.image.sprite = icon;
 
+        //    button.onClick.AddListener(delegate() {
+        //        var itemInfoUI = GameObject.FindObjectOfType<ItemInfoUI>();
+        //        itemInfoUI.ChangeItem(kv.Value, true);
+        //        //ItemInfo.SetActive(true);
+        //    });
+        //    cloned.SetActive(true);
+        //    cloned.transform.SetParent(InventoryGridContent.transform, false);
+        //}
+        RefreshItems();
 
     }
 

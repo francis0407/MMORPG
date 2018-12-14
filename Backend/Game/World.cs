@@ -23,6 +23,18 @@ namespace Backend.Game
 
         public Dictionary<string, Scene> Scenes { get{ return scenes; }}
 
+        public Dictionary<int, Player> OnlinePlayers = new Dictionary<int, Player>();
+
+        public void AddPlayer(Player player)
+        {
+            OnlinePlayers.Add(player.player_id, player);
+        }
+
+        public void RemovePlayer(Player player)
+        {
+
+            OnlinePlayers.Remove(player.player_id);
+        }
         public void Tick()
         {
             foreach (KeyValuePair<string, Scene> kv in scenes)

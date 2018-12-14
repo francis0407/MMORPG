@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Common;
-
+using System.Timers;
 namespace Gamekit3D.Network
 {
     public class MyNetwork : MonoBehaviour
@@ -24,10 +24,12 @@ namespace Gamekit3D.Network
         [Tooltip("port")]
         public short port = 7777;
 
+        private Timer heartBeatTimer = null;
         void Awake()
         {
             m_instance = this;
             MessageBox.Init();
+            Debug.Log(this.name);
             if (!connected)
             {
                 if (PlayerPrefs.HasKey(HOST) && PlayerPrefs.HasKey(PORT))
@@ -62,6 +64,17 @@ namespace Gamekit3D.Network
                     Send(login);
                 }
                 SceneManager.sceneLoaded += RecvSceneLoaded;
+            }
+            if (connected && heartBeatTimer == null)
+            {
+                heartBeatTimer = new Timer();
+                heartBeatTimer.Interval = 3000;
+                heartBeatTimer.Elapsed += delegate
+                {
+                    CHeartBeat msg = new CHeartBeat();
+                    Send(msg);
+                };
+                heartBeatTimer.Start();
             }
         }
         void Start()

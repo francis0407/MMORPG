@@ -22,7 +22,13 @@ namespace Backend.Network
                 Console.WriteLine("Login Fail : {0} {1}", request.user, request.password);
                 return;
             }
-
+            else if (World.Instance.OnlinePlayers.ContainsKey((int)hasUser))
+            {
+                response.status = SPlayerEnter.Status.Error;
+                channel.Send(response);
+                Console.WriteLine("Player {0} {1} relogin.", request.user, hasUser);
+                return;
+            }
             Player player = new Player(channel);
             player.player_id = (int)hasUser;
             string scene = "Level1";
@@ -33,6 +39,8 @@ namespace Backend.Network
             response.status = SPlayerEnter.Status.Success;
             channel.Send(response);
 
+            World.Instance.OnlinePlayers.Add(player.player_id, player);
+
             Console.WriteLine("User {0} login", request.user);
 
             player.scene = scene;
@@ -42,8 +50,7 @@ namespace Backend.Network
             player.forClone = false;
             player.token = response.user;
 
-            //ClientTipInfo(channel, "TODO: get player's attribute from database");
-            // player will be added to scene when receive client's CEnterSceneDone message
+
         }
     }
 }
