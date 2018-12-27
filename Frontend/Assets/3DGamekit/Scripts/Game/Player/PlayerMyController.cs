@@ -128,6 +128,10 @@ namespace Gamekit3D
             s_Instance = this;
             m_entity = GetComponent<NetworkEntity>();
             m_controller = GetComponent<PlayerController>();
+            var pos = FrontEnd.World.Instance.fPlayer.pos;
+            var rot = FrontEnd.World.Instance.fPlayer.rot;
+            //this.transform.position = new Vector3(pos.x, pos.y, pos.z);
+            //this.transform.rotation = new Quaternion(rot.x, rot.y, rot.z, rot.w);
         }
 
 

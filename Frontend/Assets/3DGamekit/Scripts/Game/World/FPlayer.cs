@@ -13,7 +13,13 @@ namespace FrontEnd
     {
         public Dictionary<int, FItem> inventory = new Dictionary<int, FItem>();
         public Dictionary<ItemType, FItem> wearing = new Dictionary<ItemType, FItem>();
+        public Dictionary<int, FItem> selling = new Dictionary<int, FItem>();
         public int inventory_max = 40;
+        //response.pos = new V3((float)player.Position.X, (float)player.Position.Y, (float)player.Position.Z);
+        //response.rot = new V4(0, 0, 0, 1);
+        //response.move = new V3((float)player.Position.X, (float)player.Position.Y, (float)player.Position.Z);
+        public V4 rot = new V4(0, 0, 0, 1);
+        public V3 pos = new V3(40, (float)1.578, (float)64.29);
 
         public int hp;
 

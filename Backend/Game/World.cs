@@ -32,8 +32,37 @@ namespace Backend.Game
 
         public void RemovePlayer(Player player)
         {
+            var x = OnlinePlayers.Remove(player.player_id);
+            if (!x) return;
+            if (player != null)
+            {
+                // broundcast remove player
+                SOtherPlayerExit msg = new SOtherPlayerExit();
+                msg.id = player.entityId;
+                msg.user = player.user;
+                msg.scene = player.scene;
+                Broundcast(msg);
 
-            OnlinePlayers.Remove(player.player_id);
+                // record player position
+                using (var conn = Backend.DataBase.GameDataBase.GetConnection())
+                {
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Update Player Set pos_x=@x, pos_y=@y, pos_z=@z Where player_id=@player_id";
+                        cmd.Parameters.AddWithValue("x", (float)player.Position.X);
+                        cmd.Parameters.AddWithValue("y", (float)player.Position.Y);
+                        cmd.Parameters.AddWithValue("z", (float)player.Position.Z);
+                        cmd.Parameters.AddWithValue("player_id", player.player_id);
+                        var res = cmd.ExecuteNonQuery();
+                        if (res != 1)
+                        {
+                            Console.WriteLine("Logout Fail!");
+                        }
+                    }
+                }
+            }
+            RemoveEntity(player.entityId);
+            Console.WriteLine("Player {0} {1} exit.", player.player_id, player.entityId);
         }
         public void Tick()
         {

@@ -24,6 +24,9 @@ namespace Gamekit3D.Network
             player.silver = msg.silver;
             player.hp = msg.hp;
 
+            player.pos = msg.pos;
+            var trans = GameObject.FindObjectOfType<PlayerMyController>().transform;
+            trans.position = new Vector3(msg.pos.x, msg.pos.y, msg.pos.z);
         }
     }
 }

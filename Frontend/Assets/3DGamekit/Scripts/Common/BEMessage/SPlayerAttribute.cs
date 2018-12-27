@@ -17,6 +17,7 @@ namespace Common
         public int gold;
         public int silver;
 
+        public V3 pos = new V3();
 
     }
 }

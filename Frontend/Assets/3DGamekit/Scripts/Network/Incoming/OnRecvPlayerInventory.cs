@@ -17,6 +17,8 @@ namespace Gamekit3D.Network
                     World.Instance.fPlayer.inventory.Add(item.item_id, FItem.FromDItem(item));
                 if (item.status == ItemStatus.Using)
                     World.Instance.fPlayer.wearing.Add(item.item_type, FItem.FromDItem(item));
+                if (item.status == ItemStatus.Selling)
+                    World.Instance.fPlayer.selling.Add(item.item_id, FItem.FromDItem(item));
             }
            
         }

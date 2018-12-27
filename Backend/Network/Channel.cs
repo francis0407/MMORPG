@@ -53,7 +53,7 @@ namespace Backend.Network
 
         private System.Timers.Timer timer;
 
-        private int HeartBeat = 0;
+        private long HeartBeat = 0;
         public Channel(Socket socket)
         {
             m_socket = socket;
@@ -67,12 +67,15 @@ namespace Backend.Network
         }
         public void SetHeartBeat()
         {
-            HeartBeat = (new System.DateTime()).Millisecond;
+            HeartBeat = (long)(DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1))).TotalMilliseconds;
+
+
         }
         private void CheckHeartBeat()
         {
-            System.DateTime time = new System.DateTime();
-            if (time.Millisecond - HeartBeat >= 10000)
+            long cur_time = (long)(DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1))).TotalMilliseconds;
+            Console.WriteLine("Check heartbeat {0} {1}", cur_time, HeartBeat);
+            if (cur_time - HeartBeat >= 10000)
             {
                 Close();
             }
@@ -107,21 +110,13 @@ namespace Backend.Network
             {
                 timer.Stop();
             }
+            else
+                return;
             // Broundcast to all players
             
             Player player = (Player)GetContent();
-            World.Instance.RemoveEntity(player.entityId);
-            World.Instance.OnlinePlayers.Remove(player.player_id);
-            Console.WriteLine("Player {0} {1} exit.", player.player_id, player.entityId);
-            if (player != null)
-            {
-                SOtherPlayerExit msg = new SOtherPlayerExit();
-                msg.id = player.entityId;
-                msg.user = player.user;
-                msg.scene = player.scene;
-                World.Instance.Broundcast(msg);
-            }
-
+            World.Instance.RemovePlayer(player);
+            m_player = null;
 
             foreach (ChannelDelegate @d in m_onClose)
             {

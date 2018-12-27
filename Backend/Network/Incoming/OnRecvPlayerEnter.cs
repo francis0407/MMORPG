@@ -43,7 +43,7 @@ namespace Backend.Network
             // get attributes
             SPlayerAttribute attribute = new SPlayerAttribute();
             var attr_reader = GameDataBase.SQLQuery(string.Format(
-                "Select gold, silver, speed, damage, intelligence, defence, health, hp From Player where player_id={0};", player.player_id
+                "Select gold, silver, speed, damage, intelligence, defence, health, hp, pos_x, pos_y, pos_z From Player where player_id={0};", player.player_id
                 ));
             attr_reader.Read();
             attribute.gold = attr_reader.GetInt32(0);
@@ -54,12 +54,15 @@ namespace Backend.Network
             attribute.defence = attr_reader.GetInt32(5);
             attribute.health = attr_reader.GetInt32(6);
             attribute.hp = attr_reader.GetInt32(7);
+            attribute.pos.x = attr_reader.GetFloat(8);
+            attribute.pos.y = attr_reader.GetFloat(9);
+            attribute.pos.z = attr_reader.GetFloat(10);
             channel.Send(attribute);
 
             // get all items
             SPlayerInventory inventory = new SPlayerInventory();
             var reader = GameDataBase.SQLQuery(string.Format(
-                "Select * from item where player_id={0};", player.player_id
+                "Select * From Item Where player_id={0} And status!='Drop';", player.player_id
                 ));
             List<DItem> items = new List<DItem>();
             while (reader.Read())
@@ -86,10 +89,17 @@ namespace Backend.Network
             System.Console.WriteLine("{0} Enter", player.token);
             System.Console.WriteLine("Get items {0}", items.Count);
 
+            player.Position = Entity.V3ToPoint3d(attribute.pos);
             player.Spawn();
             scene.AddEntity(player);
 
-            
+            //SPlayerMove response = new SPlayerMove();
+            //response.ID = player.entityId;
+            //response.state = MoveState.END;
+            //response.pos = new V3((float)player.Position.X, (float)player.Position.Y, (float)player.Position.Z);
+            //response.rot = new V4(0, 0, 0, 1);
+            //response.move = new V3((float)player.Position.X, (float)player.Position.Y, (float)player.Position.Z);
+            //player.Broadcast(response, true);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Backend.Network
             response.status = SPlayerEnter.Status.Success;
             channel.Send(response);
 
-            World.Instance.OnlinePlayers.Add(player.player_id, player);
+            World.Instance.AddPlayer(player);
 
             Console.WriteLine("User {0} login", request.user);
 
@@ -49,7 +49,6 @@ namespace Backend.Network
             player.FromDEntity(dentity);
             player.forClone = false;
             player.token = response.user;
-
 
         }
     }
