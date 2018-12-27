@@ -11,6 +11,10 @@ namespace FrontEnd
 {
     class FPlayer
     {
+        public PlayerController selfController = null;
+        public PlayerMyController selfMyController = null;
+        public GameObject weaponObject = null;
+
         public Dictionary<int, FItem> inventory = new Dictionary<int, FItem>();
         public Dictionary<ItemType, FItem> wearing = new Dictionary<ItemType, FItem>();
         public Dictionary<int, FItem> selling = new Dictionary<int, FItem>();
@@ -37,6 +41,9 @@ namespace FrontEnd
 
         public int gold;
         public int silver;
+
+        public bool equip_weapon = false;
+
         public void CreateItem()
         {
             CCreateItem msg = new CCreateItem();
@@ -72,6 +79,23 @@ namespace FrontEnd
                 hp += health - old_health;
             else
                 hp = System.Math.Min(hp, health);
+
+            if (wearing.ContainsKey(ItemType.Leftweapon) && wearing.ContainsKey(ItemType.Rightweapon) && !equip_weapon && selfMyController != null)
+            {
+                equip_weapon = true;
+                selfMyController.PlayerTakeWeapon();
+            } 
+        }
+        public void EquipWeapon()
+        {
+            if (weaponObject == null)
+            {
+                //var staff = GameObject.Find("Staff");
+                //weaponObject = GameObject.Instantiate(staff);
+                //weaponObject.
+            }
+
+
         }
 
         public void SendEquipItem(int item_id)

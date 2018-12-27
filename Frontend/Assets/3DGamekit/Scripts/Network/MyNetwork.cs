@@ -58,10 +58,10 @@ namespace Gamekit3D.Network
                 if (connected)
                 {
                     // for debug only ...
-                    CLogin login = new CLogin();
-                    login.user = "test11";
-                    login.password = "test11";
-                    Send(login);
+                    //CLogin login = new CLogin();
+                   // login.user = "test11";
+                   // login.password = "test11";
+                    //Send(login);
                 }
                 SceneManager.sceneLoaded += RecvSceneLoaded;
             }

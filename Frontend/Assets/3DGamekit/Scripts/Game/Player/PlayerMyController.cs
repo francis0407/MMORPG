@@ -10,6 +10,7 @@ namespace Gamekit3D
 {
     public class PlayerMyController : MonoBehaviour
     {
+        public GameObject weaponModel;
         [HideInInspector]
         public bool InputBlocked;
         NetworkEntity m_entity;
@@ -203,6 +204,11 @@ namespace Gamekit3D
             msg.playerId = m_entity.entityId;
             msg.targetId = weaponEntity.entityId;
             MyNetwork.Send(msg);
+        }
+
+        public void PlayerTakeWeapon()
+        {
+            PlayerTakeWeapon(weaponModel);
         }
 
         public void PlayerTakeItem()

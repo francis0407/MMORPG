@@ -173,7 +173,7 @@ namespace Gamekit3D
         public void InitMine()
         {
             m_mine = true;
-
+            gameObject.name = "FPLAYER";
             cameraSettings = FindObjectOfType<CameraSettings>();
 
             if (cameraSettings != null)
@@ -274,6 +274,9 @@ namespace Gamekit3D
                 m_jumping = m_myController.IsJumping;
                 m_movement.Set(m_myController.MoveInput.x, m_myController.MoveInput.y);
                 UpdateInputBlocking();
+
+                float player_speed = FrontEnd.World.Instance.fPlayer.speed;
+                maxForwardSpeed = 4.0f + 8.0f * (player_speed / (player_speed + 1000f));
             }
 
             CacheAnimatorState();

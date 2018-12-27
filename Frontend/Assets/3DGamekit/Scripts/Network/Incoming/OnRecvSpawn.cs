@@ -61,6 +61,8 @@ namespace Gamekit3D.Network
                         controller.InitMine();
                         HealthUI healthUI = GameObject.FindObjectOfType<HealthUI>();
                         healthUI.InitUI(damageable);
+                        FrontEnd.World.Instance.fPlayer.selfController = controller;
+                        FrontEnd.World.Instance.fPlayer.selfMyController = mine;
                     }
                     else
                     {

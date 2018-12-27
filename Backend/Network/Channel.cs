@@ -75,7 +75,7 @@ namespace Backend.Network
         {
             long cur_time = (long)(DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1))).TotalMilliseconds;
             Console.WriteLine("Check heartbeat {0} {1}", cur_time, HeartBeat);
-            if (cur_time - HeartBeat >= 10000)
+            if (cur_time - HeartBeat >= 1000000)
             {
                 Close();
             }

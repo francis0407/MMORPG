@@ -18,6 +18,15 @@ namespace Gamekit3D
 
         void OnTriggerEnter(Collider other)
         {
+            var controller = other.gameObject.GetComponent<PlayerController>();
+
+            if (other.GetType() != typeof(SphereCollider))
+                return;
+            if (controller == null)
+                return;
+            if (!controller.IsMine)
+                return;
+
             ExecuteOnEnter(other);
         }
 

@@ -20,7 +20,7 @@ namespace Gamekit3D.Network
                 if (item.status == ItemStatus.Selling)
                     World.Instance.fPlayer.selling.Add(item.item_id, FItem.FromDItem(item));
             }
-           
+            World.Instance.fPlayer.refreshAttr();
         }
     }
 }

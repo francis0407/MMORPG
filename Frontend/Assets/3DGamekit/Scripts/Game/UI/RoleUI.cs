@@ -58,8 +58,7 @@ public class RoleUI : MonoBehaviour
             var obj = WearingObjects[item.Value.item_type];
             obj.GetComponent<Image>().sprite = GetAllIcons.icons[icon];
             obj.GetComponent<Button>().onClick.RemoveAllListeners();
-            
-            obj.GetComponent<Button>().
+                      
             obj.GetComponent<Button>().onClick.AddListener(delegate(){
                 //var itemInfoUI = GameObject.FindObjectOfType<ItemInfoUI>();
                 var obj2 = GameObject.Find("ItemInfo");
