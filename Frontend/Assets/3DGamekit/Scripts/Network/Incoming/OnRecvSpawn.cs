@@ -58,11 +58,12 @@ namespace Gamekit3D.Network
                     {
                         thisPlayer = controller;
                         channel.SetContent(go);
+                        FrontEnd.World.Instance.fPlayer.selfController = controller;
+                        FrontEnd.World.Instance.fPlayer.selfMyController = mine;
                         controller.InitMine();
                         HealthUI healthUI = GameObject.FindObjectOfType<HealthUI>();
                         healthUI.InitUI(damageable);
-                        FrontEnd.World.Instance.fPlayer.selfController = controller;
-                        FrontEnd.World.Instance.fPlayer.selfMyController = mine;
+                        
                     }
                     else
                     {

@@ -175,7 +175,7 @@ namespace Gamekit3D
             m_mine = true;
             gameObject.name = "FPLAYER";
             cameraSettings = FindObjectOfType<CameraSettings>();
-
+            FrontEnd.World.Instance.fPlayer.refreshAttr();
             if (cameraSettings != null)
             {
                 cameraSettings.follow = transform;
@@ -982,6 +982,32 @@ namespace Gamekit3D
                 EquipMeleeWeapon(true);
             }
 
+        }
+
+        public GameObject UnEquipWeapon()
+        {
+            if (canAttack == false || meleeWeapon == null)
+                return null;
+            //var follow = meleeWeapon.gameObject.GetComponent<FixedUpdateFollow>();
+            //follow.toFollow = null;
+            canAttack = false;
+            var go = meleeWeapon.gameObject;
+            meleeWeapon = null;
+            go.GetComponent<Animator>().enabled = false;
+            go.SetActive(false);
+            return go;
+            //Destroy(go);
+        }
+
+        public void ReEquipWeapon(GameObject weapon)
+        {
+            weapon.SetActive(true);
+            weapon.GetComponent<Animator>().enabled = true;
+           // var follow = meleeWeapon.gameObject.GetComponent<FixedUpdateFollow>();
+           // follow.toFollow = leftHandAttach.transform;
+            meleeWeapon = weapon.gameObject.GetComponent<MeleeWeapon>();
+            canAttack = true;
+            
         }
 
         public void TakeItem(NetworkEntity item)

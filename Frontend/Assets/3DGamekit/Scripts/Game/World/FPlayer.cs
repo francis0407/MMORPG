@@ -14,7 +14,7 @@ namespace FrontEnd
         public PlayerController selfController = null;
         public PlayerMyController selfMyController = null;
         public GameObject weaponObject = null;
-
+        public GameObject equipedWeapon = null;
         public Dictionary<int, FItem> inventory = new Dictionary<int, FItem>();
         public Dictionary<ItemType, FItem> wearing = new Dictionary<ItemType, FItem>();
         public Dictionary<int, FItem> selling = new Dictionary<int, FItem>();
@@ -80,21 +80,27 @@ namespace FrontEnd
             else
                 hp = System.Math.Min(hp, health);
 
+
+        }
+        public void CheckWeapon()
+        {
             if (wearing.ContainsKey(ItemType.Leftweapon) && wearing.ContainsKey(ItemType.Rightweapon) && !equip_weapon && selfMyController != null)
             {
                 equip_weapon = true;
-                selfMyController.PlayerTakeWeapon();
-            } 
-        }
-        public void EquipWeapon()
-        {
-            if (weaponObject == null)
-            {
-                //var staff = GameObject.Find("Staff");
-                //weaponObject = GameObject.Instantiate(staff);
-                //weaponObject.
+                if (equipedWeapon == null)
+                    selfMyController.PlayerTakeWeapon();
+                else
+                    selfController.ReEquipWeapon(equipedWeapon);
             }
-
+            else
+            {
+                if (!wearing.ContainsKey(ItemType.Leftweapon) || !wearing.ContainsKey(ItemType.Rightweapon))
+                    if (equip_weapon == true && selfController != null)
+                    {
+                        equipedWeapon = selfController.UnEquipWeapon();
+                        equip_weapon = false;
+                    }
+            }
 
         }
 

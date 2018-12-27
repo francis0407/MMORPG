@@ -33,7 +33,7 @@ public class FriendUI : MonoBehaviour
     {
        // Debug.Log(this.name);
         Debug.Log("Start FriendUI");
-        Test();
+      //  Test();
     }
 
     private void OnEnable()

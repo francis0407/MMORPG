@@ -20,7 +20,7 @@ namespace Gamekit3D.Network
             {
                 item = networkEntities[msg.itemID];
             }
-            thisPlayer.TakeItem(item);
+            //thisPlayer.TakeItem(item);
         }
     }
 }

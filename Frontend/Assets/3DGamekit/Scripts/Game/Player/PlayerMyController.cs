@@ -163,6 +163,8 @@ namespace Gamekit3D
             m_Pause = Input.GetButtonDown("Pause");
 
             m_lastPosition = transform.position;
+
+            FrontEnd.World.Instance.fPlayer.CheckWeapon();
         }
 
         IEnumerator AttackWait()
@@ -284,7 +286,7 @@ namespace Gamekit3D
             NetworkEntity damager = other.gameObject.GetComponent<NetworkEntity>();
             if (damager == null)
                 return;
-            Debug.Log(string.Format("Player {0} collide {1}", this.Entity.EntityId, damager.EntityId));
+            Debug.Log(string.Format("Player {0} collide {1} {2}", this.Entity.EntityId, damager.EntityId, damager.gameObject.name));
             m_attackTarget = damager.EntityId;
         }
 
