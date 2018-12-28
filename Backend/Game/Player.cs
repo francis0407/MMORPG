@@ -1,7 +1,7 @@
 ﻿using Common;
 using System;
-using System.Collections;
-
+using System.Collections.Generic;
+using FrontEnd.Item;
 namespace Backend.Game
 {
     public class Player : Creature
@@ -10,13 +10,64 @@ namespace Backend.Game
         public string user;
         public string token;
         public int player_id;
-        private Weapon m_weapon;
 
+        public Dictionary<int, DItem> inventory = new Dictionary<int, DItem>();
+        public Dictionary<ItemType, DItem> wearing = new Dictionary<ItemType, DItem>();
+        public Dictionary<int, DItem> selling = new Dictionary<int, DItem>();
+
+        public int attr_health;
+        public int attr_speed;
+        public int attr_damage;
+        public int attr_intelligence;
+        public int attr_defence;
+
+        public int base_health;
+        public int base_speed;
+        public int base_damage;
+        public int base_intelligence;
+        public int base_defence;
+
+        private Weapon m_weapon;
+        
         public Weapon Weapon { get { return m_weapon; } }
         public Player(IChannel channel)
         {
             connection = channel;
             channel.SetContent(this);
+        }
+
+        public void refreshAttr()
+        {
+            int old_health = maxHP;
+
+            attr_health = base_health;
+            attr_speed = base_speed;
+            attr_damage = base_damage;
+            attr_intelligence = base_intelligence;
+            attr_defence = base_defence;
+
+            foreach (var item in wearing)
+            {
+                attr_health += item.Value.health_value;
+                attr_speed += item.Value.speed_value;
+                attr_damage += item.Value.damage_value;
+                attr_intelligence += item.Value.intelligence_value;
+                attr_defence += item.Value.defence_value;
+            }
+
+            maxHP = attr_health;
+            if (attr_health > old_health)
+            {
+                currentHP += attr_health - old_health;
+                
+            }
+            else
+                currentHP = System.Math.Min(currentHP, attr_health);  
+        }
+
+        override public void Update()
+        {
+           // refreshAttr();
         }
         override public void OnHit(Creature enemy, int hpDec)
         {
@@ -116,6 +167,21 @@ namespace Backend.Game
         }
 
         virtual public void OnBirth()
+        {
+
+        }
+
+        public void Award()
+        {
+            
+        }
+
+        public void AwardItem()
+        {
+
+        }
+
+        public void AwardSilver()
         {
 
         }

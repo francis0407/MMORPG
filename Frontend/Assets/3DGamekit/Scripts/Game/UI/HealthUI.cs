@@ -23,7 +23,8 @@ namespace Gamekit3D
             m_representedDamageable = damageable;
             m_HealthIconAnimators = new Animator[m_representedDamageable.maxHitPoints];
 
-            for (int i = 0; i < m_representedDamageable.maxHitPoints; i++)
+            int HPpercent = (int)System.Math.Ceiling(m_representedDamageable.hpPercent);
+            for (int i = 0; i < 5; i++)
             {
                 GameObject healthIcon = Instantiate(HealthIconPrefab);
                 healthIcon.SetActive(true);
@@ -37,7 +38,7 @@ namespace Gamekit3D
                 */
                 m_HealthIconAnimators[i] = healthIcon.GetComponent<Animator>();
 
-                if (m_representedDamageable.currentHitPoints < i + 1)
+                if (HPpercent < i + 1)
                 {
                     m_HealthIconAnimators[i].Play(m_HashInactiveState);
                     m_HealthIconAnimators[i].SetBool(m_HashActivePara, false);
@@ -48,10 +49,10 @@ namespace Gamekit3D
         {
             if (m_HealthIconAnimators == null)
                 return;
-
+            int HPpercent = (int)System.Math.Ceiling(m_representedDamageable.hpPercent);
             for (int i = 0; i < m_HealthIconAnimators.Length; i++)
             {
-                m_HealthIconAnimators[i].SetBool(m_HashActivePara, damageable.currentHitPoints >= i + 1);
+                m_HealthIconAnimators[i].SetBool(m_HashActivePara, HPpercent >= i + 1);
             }
         }
     }

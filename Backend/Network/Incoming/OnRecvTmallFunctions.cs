@@ -133,7 +133,10 @@ namespace Backend.Network
                 response.silver = -silver;
             response.gold = -gold;
             channel.Send(response);
-
+            foreach(var ditem in items)
+            {
+                player.inventory.Add(ditem.item_id, ditem);
+            }
         }
     }
 }

@@ -144,6 +144,7 @@ namespace Backend.Network
             SBuyMarketItem response = new SBuyMarketItem();
             response.item = request.item;
             channel.Send(response);
+            player.inventory.Add(request.item.ditem.item_id, request.item.ditem);
         }
 
         private void OnRecvSellMarketItem(IChannel channel, Message message)
@@ -216,6 +217,7 @@ namespace Backend.Network
             SSellMarketItem response = new SSellMarketItem();
             response.item = request.item;
             channel.Send(response);
+            player.inventory.Remove(request.item.ditem.item_id);
             return;
         }
     }

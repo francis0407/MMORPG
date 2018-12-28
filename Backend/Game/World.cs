@@ -48,10 +48,11 @@ namespace Backend.Game
                 {
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "Update Player Set pos_x=@x, pos_y=@y, pos_z=@z Where player_id=@player_id";
+                        cmd.CommandText = "Update Player Set pos_x=@x, pos_y=@y, pos_z=@z, hp=@hp Where player_id=@player_id";
                         cmd.Parameters.AddWithValue("x", (float)player.Position.X);
                         cmd.Parameters.AddWithValue("y", (float)player.Position.Y);
                         cmd.Parameters.AddWithValue("z", (float)player.Position.Z);
+                        cmd.Parameters.AddWithValue("hp", player.currentHP);
                         cmd.Parameters.AddWithValue("player_id", player.player_id);
                         var res = cmd.ExecuteNonQuery();
                         if (res != 1)

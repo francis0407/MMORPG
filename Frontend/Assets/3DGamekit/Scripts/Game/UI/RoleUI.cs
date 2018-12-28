@@ -34,7 +34,8 @@ public class RoleUI : MonoBehaviour
     {
         var player = World.Instance.fPlayer;
         player.refreshAttr();
-        HPValue.text = player.hp.ToString() + "/" + player.health.ToString();
+        //HPValue.text = player.hp.ToString() + "/" + player.health.ToString();
+        HPValue.text = m_damageable.currentHitPoints.ToString() + "/" + m_damageable.maxHitPoints.ToString();
         InteligenceValue.text = player.intelligence.ToString();
         SpeedValue.text = player.speed.ToString();
         AttackValue.text = player.damage.ToString();

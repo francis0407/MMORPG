@@ -28,6 +28,12 @@ namespace Gamekit3D
         public bool isInvulnerable { get; set; }
         public int currentHitPoints { get; set; }
 
+        public double hpPercent {
+            get {
+                if (currentHitPoints == 0) return 0;
+                return 5d * (double)currentHitPoints / (double)maxHitPoints ;
+            }
+        }
         public UnityEvent OnDeath, OnReceiveDamage, OnHitWhileInvulnerable, OnBecomeVulnerable, OnResetDamage;
 
         [Tooltip("When this gameObject is damaged, these other gameObjects are notified.")]

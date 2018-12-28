@@ -28,6 +28,7 @@ namespace Gamekit3D
                 msg.entityId = pc.Entity.entityId;
                 msg.decHP = damageAmount;
                 MyNetwork.Send(msg);
+                Debug.Log("Damage");
             }
         }
     }

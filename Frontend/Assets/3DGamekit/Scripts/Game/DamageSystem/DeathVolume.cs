@@ -21,6 +21,7 @@ namespace Gamekit3D
                 msg.entityId = pc.Entity.entityId;
                 msg.decHP = int.MaxValue;
                 MyNetwork.Send(msg);
+                Debug.Log("Damage");
             }
             if (audio != null)
             {

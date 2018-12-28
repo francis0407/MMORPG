@@ -9,7 +9,7 @@ using UnityEngine;
 using Common;
 namespace FrontEnd
 {
-    class FPlayer
+    public class FPlayer
     {
         public PlayerController selfController = null;
         public PlayerMyController selfMyController = null;
@@ -76,11 +76,19 @@ namespace FrontEnd
             }
 
             if (health > old_health)
+            {
                 hp += health - old_health;
+                selfController.Damageable.currentHitPoints += health - old_health;
+                selfController.Damageable.maxHitPoints = health;
+            }
             else
+            {
                 hp = System.Math.Min(hp, health);
-
-
+                selfController.Damageable.maxHitPoints = health;
+                selfController.Damageable.currentHitPoints = System.Math.Min(
+                    selfController.Damageable.maxHitPoints,
+                    selfController.Damageable.currentHitPoints);
+            }
         }
         public void CheckWeapon()
         {
@@ -208,6 +216,9 @@ namespace FrontEnd
             {
                 // HP
                 hp = health;
+                selfController.GetComponent<Damageable>().currentHitPoints = selfController.GetComponent<Damageable>().maxHitPoints;
+
+
             }
             else
             {
@@ -228,5 +239,6 @@ namespace FrontEnd
             if (RoleUI != null)
                 RoleUI.RefreshAll();
         }
+
     }
 }

@@ -186,22 +186,26 @@ namespace Backend.Game
             {
                 // cannot find a way , something was wrong ???
                 // fly to spawn point
+                
+                // wtf???
             }
             SendMove(MoveState.BEGIN, Position);
         }
 
         public override void OnReSpawn()
         {
+            m_chaseState = ChaseState.IDLE;
             SSpawn spawn = new SSpawn();
             Reset();
             spawn.isMine = false;
             spawn.entity = ToDEntity();
             Broadcast(spawn);
+            Console.WriteLine("{0} reset", name);
         }
 
         public override void OnDie()
         {
-
+            Console.WriteLine("{0} die", name);
         }
         private void SendMove(MoveState state, Point3d position, int targetId = 0)
         {

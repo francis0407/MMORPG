@@ -91,6 +91,31 @@ namespace Backend.Network
 
             player.Position = Entity.V3ToPoint3d(attribute.pos);
             player.Spawn();
+            player.maxHP = attribute.health;
+            player.currentHP = attribute.hp;
+            player.base_damage = attribute.damage;
+            player.base_speed = attribute.speed;
+            player.base_health = attribute.health;
+            player.base_intelligence = attribute.intelligence;
+            player.base_defence = attribute.defence;
+            
+            foreach(var ditem in items)
+            {
+                switch (ditem.status)
+                {
+                    case ItemStatus.Storing:
+                        player.inventory.Add(ditem.item_id, ditem);
+                        break;
+                    case ItemStatus.Selling:
+                        player.selling.Add(ditem.item_id, ditem);
+                        break;
+                    case ItemStatus.Using:
+                        player.wearing.Add(ditem.item_type, ditem);
+                        break;
+                }
+            }
+            player.refreshAttr();
+
             scene.AddEntity(player);
 
             //SPlayerMove response = new SPlayerMove();

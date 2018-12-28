@@ -19,6 +19,11 @@ namespace Backend.Network
                 SPlayerEquipItem response = new SPlayerEquipItem();
                 response.item_id = request.item_id;
                 channel.Send(response);
+                var player = (Player)channel.GetContent();
+                var ditem = player.inventory[request.item_id];
+                player.inventory.Remove(request.item_id);
+                player.wearing.Add(ditem.item_type, ditem);
+                player.refreshAttr();
             }
         }
 
@@ -36,6 +41,14 @@ namespace Backend.Network
                 SPlayerUnEquipItem response = new SPlayerUnEquipItem();
                 response.item_id = request.item_id;
                 channel.Send(response);
+                FrontEnd.Item.DItem ditem = null;
+                var player = (Player)channel.GetContent();
+                foreach (var item in player.wearing)
+                    if (item.Value.item_id == request.item_id)
+                        ditem = item.Value;
+                player.wearing.Remove(ditem.item_type);
+                player.inventory.Add(ditem.item_id, ditem);
+                player.refreshAttr();
             }
         }
 
@@ -81,6 +94,8 @@ namespace Backend.Network
                 item_id = request.item_id
             };
             channel.Send(response);
+            var player = (Player)channel.GetContent();
+            player.inventory.Remove(request.item_id);
         }
 
         private void OnRecvPlayerChangeItem(IChannel channel, Message message)
@@ -121,12 +136,27 @@ namespace Backend.Network
             response.new_id = request.new_id;
             response.old_id = request.old_id;
             channel.Send(response);
+            var player = (Player)channel.GetContent();
+            FrontEnd.Item.DItem ditem = null;
+            foreach (var item in player.wearing)
+                if (item.Value.item_id == request.old_id)
+                    ditem = item.Value;
+            player.wearing.Remove(ditem.item_type);
+            player.inventory.Add(ditem.item_id, ditem);
+            ditem = player.inventory[request.new_id];
+            player.inventory.Remove(request.new_id);
+            player.wearing.Add(ditem.item_type, ditem);
+            player.refreshAttr();
             return;
         }
         private void OnRecvPlayerUseItem(IChannel channel, Message message)
         {
             CPlayerUseItem request = message as CPlayerUseItem;
-
+            int health_value = 0;
+            int speed_value = 0;
+            int damage_value = 0;
+            int intelligence_value = 0;
+            int defence_value = 0;
             using (var conn = GameDataBase.GetConnection())
             {
                 using (var trans = conn.BeginTransaction())
@@ -143,11 +173,6 @@ namespace Backend.Network
                             return;
                         }
                     }
-                    int health_value = 0;
-                    int speed_value = 0;
-                    int damage_value = 0;
-                    int intelligence_value = 0;
-                    int defence_value = 0;
                     using (var cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = "Select health_value, speed_value, damage_value, intelligence_value, defence_value From Item Where item_id=@item_id;";
@@ -208,6 +233,23 @@ namespace Backend.Network
             SPlayerUseItem response = new SPlayerUseItem();
             response.item_id = request.item_id;
             channel.Send(response);
+            var player = (Player)channel.GetContent();
+            var ditem = player.inventory[request.item_id];
+            player.inventory.Remove(request.item_id);
+            if (health_value + speed_value + damage_value + intelligence_value + defence_value == 0)
+            {
+                // HP
+                player.currentHP = player.maxHP;
+            }
+            else
+            {
+                player.base_damage += damage_value;
+                player.base_health += health_value;
+                player.base_defence += defence_value;
+                player.base_intelligence += intelligence_value;
+                player.base_speed += speed_value;
+            }
+            player.refreshAttr();
         }
     }// class Incoming
 }
