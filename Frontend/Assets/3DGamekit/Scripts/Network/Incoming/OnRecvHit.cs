@@ -7,7 +7,7 @@ namespace Gamekit3D.Network
         private void OnRecvHit(IChannel channel, Message message)
         {
             SHit msg = message as SHit;
-
+            UnityEngine.Debug.Log(string.Format("{0} hit {1} hp:{2}", msg.sourceId, msg.targetId, msg.decHP));
             NetworkEntity target = networkEntities[msg.targetId];
             NetworkEntity source = null;
             if (msg.sourceId != 0)

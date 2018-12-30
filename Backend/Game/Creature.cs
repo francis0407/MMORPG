@@ -17,6 +17,7 @@ namespace Backend.Game
         public bool aggressive = false;
         public string scene;
 
+        public object hitLock = new object();
         protected DateTime m_lastHitTS = DateTime.UnixEpoch;
 
         public bool IsInvulnerable()

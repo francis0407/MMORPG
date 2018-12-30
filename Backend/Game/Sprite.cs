@@ -25,6 +25,7 @@ namespace Backend.Game
         const float DistanceEpsilon = 3.0f;
         const float LongDistance = 100.0f;
 
+        
 
         public void EnemyClosing(Creature creature)
         {
@@ -40,29 +41,34 @@ namespace Backend.Game
         // the enemy is null if not exists one
         public override void OnHit(Creature enemy, int hpDec)
         {
-            if (currentHP == 0)
-                return;
+            // Use lock to prevent multi-hit
 
-            if (IsInvulnerable())
-                return;
+                if (currentHP == 0)
+                    return;
 
-            // TODO calculate hit point decrease by creature's attribute
-            hpDec = currentHP - hpDec < 0 ? currentHP : hpDec;
-            SHit hit = new SHit();
-            hit.decHP = hpDec;
-            hit.sourceId = enemy != null ? enemy.entityId : 0;
-            hit.targetId = this.entityId;
-            Broadcast(hit);
-            currentHP = currentHP - hpDec;
-            if (currentHP == 0)
-            {
-                OnDie();
-                World.Instance.DelayInvoke(20, OnReSpawn);
-            }
-            else
-            {
-                EnemyClosing(enemy);
-            }
+                if (IsInvulnerable())
+                    return;
+
+                // TODO calculate hit point decrease by creature's attribute
+                hpDec = currentHP - hpDec < 0 ? currentHP : hpDec;
+                currentHP = currentHP - hpDec;
+            
+                SHit hit = new SHit();
+                hit.decHP = hpDec;
+                hit.sourceId = enemy != null ? enemy.entityId : 0;
+                hit.targetId = this.entityId;
+                Broadcast(hit);
+
+                if (currentHP == 0)
+                {
+                    OnDie();
+                    World.Instance.DelayInvoke(20, OnReSpawn);
+                }
+                else
+                {
+                    EnemyClosing(enemy);
+                }
+            
         }
 
         public override void Update()
@@ -194,7 +200,7 @@ namespace Backend.Game
 
         public override void OnReSpawn()
         {
-            m_chaseState = ChaseState.IDLE;
+            //m_chaseState = ChaseState.IDLE;
             SSpawn spawn = new SSpawn();
             Reset();
             spawn.isMine = false;
@@ -205,6 +211,10 @@ namespace Backend.Game
 
         public override void OnDie()
         {
+            SSpriteDie msg = new SSpriteDie();
+            msg.entityId = this.entityId;
+            Broadcast(msg);
+            UpdateActive = false;
             Console.WriteLine("{0} die", name);
         }
         private void SendMove(MoveState state, Point3d position, int targetId = 0)

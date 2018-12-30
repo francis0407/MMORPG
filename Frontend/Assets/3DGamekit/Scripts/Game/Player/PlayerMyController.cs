@@ -15,7 +15,8 @@ namespace Gamekit3D
         public bool InputBlocked;
         NetworkEntity m_entity;
         PlayerController m_controller;
-        int m_attackTarget;
+        public int m_attackTarget;
+        public GameObject m_attackTargetObj;
         static int m_enabledWindowCount;
 
         protected static PlayerMyController s_Instance;
@@ -282,12 +283,12 @@ namespace Gamekit3D
         {
             if ((damagedLayers.value & 1 << other.gameObject.layer) == 0)
                 return;
-            Debug.Log(string.Format("collid {0}", other.gameObject.name));
+           /* Debug.Log(string.Format("collid {0}", other.gameObject.name));
             NetworkEntity damager = other.gameObject.GetComponent<NetworkEntity>();
             if (damager == null)
                 return;
             Debug.Log(string.Format("Player {0} collide {1} {2}", this.Entity.EntityId, damager.EntityId, damager.gameObject.name));
-            m_attackTarget = damager.EntityId;
+            m_attackTarget = damager.EntityId;*/
         }
 
         private void OnTriggerExit(Collider other)
@@ -295,12 +296,12 @@ namespace Gamekit3D
             if ((damagedLayers.value & 1 << other.gameObject.layer) == 0)
                 return;
 
-            NetworkEntity damager = other.gameObject.GetComponent<NetworkEntity>();
+           /* NetworkEntity damager = other.gameObject.GetComponent<NetworkEntity>();
             if (damager == null)
                 return;
 
             if (m_attackTarget == damager.entityId)
-                m_attackTarget = 0;
+                m_attackTarget = 0;*/
         }
         void OnTriggerStay(Collider other)
         {

@@ -51,7 +51,7 @@ namespace Backend.Network
                     using (var cmd = conn.CreateCommand())
                     {
                         // Check Player account
-                        cmd.CommandText = "Select player_id From Player Where player_id=@player_id And gold>@gold And silver>@silver And items_count<=@items_count;";
+                        cmd.CommandText = "Select player_id From Player Where player_id=@player_id And gold>=@gold And silver>=@silver And items_count<=@items_count;";
                         cmd.Parameters.AddWithValue("player_id", player.player_id);
                         cmd.Parameters.AddWithValue("gold", gold);
                         cmd.Parameters.AddWithValue("silver", silver);

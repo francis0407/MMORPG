@@ -67,30 +67,38 @@ namespace Backend.Game
 
         override public void Update()
         {
-           // refreshAttr();
+            
+         
         }
         override public void OnHit(Creature enemy, int hpDec)
         {
-            if (currentHP == 0)
-                return;
-
-            if (IsInvulnerable())
-                return;
-
-            m_lastHitTS = DateTime.Now;
-            hpDec = currentHP - hpDec < 0 ? currentHP : hpDec;
-
-            SHit hit = new SHit();
-            hit.decHP = hpDec;
-            hit.sourceId = enemy != null ? enemy.entityId : 0;
-            hit.targetId = this.entityId;
-            Broadcast(hit);
-
-            currentHP = currentHP - hpDec;
-            if (currentHP == 0)
+            lock (hitLock)
             {
-                OnDie();
-                World.Instance.DelayInvoke(5, OnReSpawn);
+                if (currentHP == 0)
+                    return;
+
+                if (IsInvulnerable())
+                    return;
+
+                m_lastHitTS = DateTime.Now;
+
+                // use defence attribute
+                hpDec = (int)Math.Ceiling((double)hpDec * 100d / ((double)attr_defence + 100d));
+
+                hpDec = currentHP - hpDec < 0 ? currentHP : hpDec;
+
+                SHit hit = new SHit();
+                hit.decHP = hpDec;
+                hit.sourceId = enemy != null ? enemy.entityId : 0;
+                hit.targetId = this.entityId;
+                Broadcast(hit);
+
+                currentHP = currentHP - hpDec;
+                if (currentHP == 0)
+                {
+                    OnDie();
+                    World.Instance.DelayInvoke(5, OnReSpawn);
+                }
             }
         }
 

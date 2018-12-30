@@ -88,7 +88,9 @@ namespace Gamekit3D
             currentHitPoints -= data.amount;
 
             if (currentHitPoints <= 0)
-                schedule += OnDeath.Invoke; //This avoid race condition when objects kill each other.
+                //schedule += OnDeath.Invoke; //This avoid race condition when objects kill each other. 
+                // OnDeath can only be called once
+                Debug.Log(string.Format("{0} die", gameObject.name));
             else
                 OnReceiveDamage.Invoke();
 

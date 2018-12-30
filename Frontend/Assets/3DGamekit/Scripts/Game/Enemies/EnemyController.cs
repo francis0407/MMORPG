@@ -43,6 +43,7 @@ namespace Gamekit3D
         const float k_GroundedRayDistance = .8f;
 
         private NetworkEntity m_entity;
+        public NetworkEntity Entity { get { return m_entity; } }
         private ICreatureBehavior m_target;
         private float m_desiredSpeed;
         private float m_currentSpeed;
@@ -349,7 +350,7 @@ namespace Gamekit3D
 
         public void Die()
         {
-
+            gameObject.SetActive(false);
         }
 
         private void OnTriggerEnter(Collider other)

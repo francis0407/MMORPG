@@ -19,6 +19,8 @@ namespace Gamekit3D
         public bool IsReadyToJump { get { return m_ReadyToJump; } }
         public bool CanAttack { get { return canAttack && IsMine; } }
 
+        public float AttackRadius = 2.0f;
+
         public bool respawning { get { return m_Respawning; } }
         public bool IsMine { get { return m_mine; } }
 
@@ -330,6 +332,54 @@ namespace Gamekit3D
             TimeoutToIdle();
 
             m_PreviouslyGrounded = m_IsGrounded;
+
+            // detect attack target
+            UpdateAttackTarget();
+
+        }
+        void UpdateAttackTarget()
+        {
+            if (!IsMine)
+                return;
+            var players = GameObject.FindObjectsOfType<PlayerController>();
+            var chompers = GameObject.FindObjectsOfType<EnemyController>();
+           
+            GameObject nearestObject = null;
+            int nearestId = 0;
+            float nearestDistance = AttackRadius;
+            foreach (var player in players)
+            {
+                if (player == this || !player.gameObject.activeSelf)
+                    continue;
+                var tempDistance = EuclidDistance(player.gameObject.transform.position, gameObject.transform.position);
+                if (tempDistance < nearestDistance)
+                {
+                    nearestId = player.Entity.EntityId;
+                    nearestObject = player.gameObject;
+                    nearestDistance = tempDistance;
+                }
+            }
+
+            foreach(var chomper in chompers)
+            {
+                if (!chomper.gameObject.activeSelf)
+                    continue;
+                var tempDistance = EuclidDistance(chomper.gameObject.transform.position, gameObject.transform.position);
+                if (tempDistance < nearestDistance)
+                {
+                    nearestId = chomper.Entity.EntityId;
+                    nearestObject = chomper.gameObject;
+                    nearestDistance = tempDistance;
+                }
+            }
+            if (m_myController.m_attackTarget != nearestId)
+                Debug.Log(string.Format("Change target from {0} to {1}", m_myController.m_attackTarget, nearestId));
+            m_myController.m_attackTarget = nearestId;
+
+        }
+        float EuclidDistance(Vector3 a, Vector3 b)
+        {
+            return (float)System.Math.Sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z));
         }
 
         // Called at the start of FixedUpdate to record the current state of the base layer of the animator.

@@ -77,7 +77,7 @@ namespace Backend.Network
             Console.WriteLine("Check heartbeat {0} {1}", cur_time, HeartBeat);
             if (cur_time - HeartBeat >= 1000000)
             {
-                Close();
+               // Close();
             }
         }
 

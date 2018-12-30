@@ -19,7 +19,7 @@ namespace Backend.Game
 
         public Dictionary<string, DEntity> EntityData { get { return data; } }
 
-        private Queue<KeyValuePair<DateTime, OnTimer>> m_timers = new Queue<KeyValuePair<DateTime, OnTimer>>();
+        private List<KeyValuePair<DateTime, OnTimer>> m_timers = new List<KeyValuePair<DateTime, OnTimer>>();
 
         public Dictionary<string, Scene> Scenes { get{ return scenes; }}
 
@@ -32,6 +32,8 @@ namespace Backend.Game
 
         public void RemovePlayer(Player player)
         {
+            if (player == null)
+                return;
             var x = OnlinePlayers.Remove(player.player_id);
             if (!x) return;
             if (player != null)
@@ -39,7 +41,7 @@ namespace Backend.Game
                 // broundcast remove player
                 SOtherPlayerExit msg = new SOtherPlayerExit();
                 msg.id = player.entityId;
-                msg.user = player.user;
+                msg.user = player.name;
                 msg.scene = player.scene;
                 Broundcast(msg);
 
@@ -71,13 +73,13 @@ namespace Backend.Game
             {
                 kv.Value.Update();
             }
-            while (m_timers.Count != 0)
+            for (int i = m_timers.Count-1; i>=0; i--)
             {
-                var kv = m_timers.Peek();
-                if (kv.Key <= DateTime.Now)
+                var timer = m_timers[i];
+                if (timer.Key <= DateTime.Now)
                 {
-                    kv.Value.Invoke();
-                    m_timers.Dequeue();
+                    timer.Value.Invoke();
+                    m_timers.RemoveAt(i);
                 }
             }
         }
@@ -87,7 +89,7 @@ namespace Backend.Game
         {
             var ts = DateTime.Now.Add(TimeSpan.FromSeconds(seconds));
             var kv = new KeyValuePair<DateTime, OnTimer>(ts, onTimer);
-            m_timers.Enqueue(kv);
+            m_timers.Add(kv);
         }
 
         public Entity GetEntity(int id)
