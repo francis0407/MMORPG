@@ -37,6 +37,7 @@ namespace Backend.Network
             register.Register(Command.C_GET_MARKET_ITEMS, OnRecvGetMarketItems);
             register.Register(Command.C_HEART_BEAT, OnRecvHeartBeat);
             register.Register(Command.C_PLAYER_EXIT, OnRecvPlayerExit);
+            register.Register(Command.C_TRIGER_ON_ENTER, OnRecvTrigerOnEnter);
             // DEBUG ..
             register.Register(Command.C_FIND_PATH, OnRecvFindPath);
 

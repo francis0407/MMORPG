@@ -187,6 +187,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SSpriteMove.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\STipInfo.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\STmallMessages.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\STrigerMessages.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\Command.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\Delegate.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CChatMessage.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CPositionRevisecs.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CRegister.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CTmallMessages.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CTrigerMessages.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\IChannel.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\IRegister.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\Message.cs" />
@@ -406,6 +408,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvTakeItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvTipInfo.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvTmallFunctions.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvTrigerMessages.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\IPlayerBehavior.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\ISpriteBehavior.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\MyNetwork.cs" />

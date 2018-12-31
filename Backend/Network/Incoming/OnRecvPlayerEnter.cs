@@ -118,13 +118,15 @@ namespace Backend.Network
 
             scene.AddEntity(player);
 
-            //SPlayerMove response = new SPlayerMove();
-            //response.ID = player.entityId;
-            //response.state = MoveState.END;
-            //response.pos = new V3((float)player.Position.X, (float)player.Position.Y, (float)player.Position.Z);
-            //response.rot = new V4(0, 0, 0, 1);
-            //response.move = new V3((float)player.Position.X, (float)player.Position.Y, (float)player.Position.Z);
-            //player.Broadcast(response, true);
+            // send triger status
+            STrigerStatus sTriger = new STrigerStatus();
+            sTriger.doors = new Door[World.Instance.Doors.Values.Count];
+            World.Instance.Doors.Values.CopyTo(sTriger.doors, 0);
+            sTriger.pressurePads = new PressurePad[World.Instance.PressurePads.Count];
+            World.Instance.PressurePads.Values.CopyTo(sTriger.pressurePads, 0);
+            sTriger.switchCrystals = new SwitchCrystal[World.Instance.SwitchCrystals.Count];
+            World.Instance.SwitchCrystals.Values.CopyTo(sTriger.switchCrystals, 0);
+            channel.Send(sTriger);
         }
     }
 }

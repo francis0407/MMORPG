@@ -10,7 +10,6 @@ namespace Backend.Network
     {
         private void OnRecvRegister(IChannel channel, Message message)
         {
-            // TODO ...
             // write to database
             CRegister request = message as CRegister;
             SRegister response = new SRegister(); 

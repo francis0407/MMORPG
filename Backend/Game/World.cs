@@ -25,6 +25,26 @@ namespace Backend.Game
 
         public Dictionary<int, Player> OnlinePlayers = new Dictionary<int, Player>();
 
+        public Dictionary<string, Door> Doors = new Dictionary<string, Door>();
+
+        public Dictionary<string, PressurePad> PressurePads = new Dictionary<string, PressurePad>();
+
+        public Dictionary<string, SwitchCrystal> SwitchCrystals = new Dictionary<string, SwitchCrystal>();
+
+        public World()
+        {
+            // init trigers
+            Doors.Add("DoorHuge", new Door(false, 0, "DoorHuge"));
+            Doors.Add("DoorHuge1", new Door(false, 1, "DoorHuge1"));
+            Doors.Add("DoorHuge2", new Door(false, 2, "DoorHuge2"));
+
+            PressurePads.Add("PressurePad1", new PressurePad(true, 1, "PressurePad1"));
+            PressurePads.Add("PressurePad2", new PressurePad(false, 2, "PressurePad2"));
+
+            SwitchCrystals.Add("Switch0", new SwitchCrystal(false, 0, "Switch0"));
+            SwitchCrystals.Add("Switch2", new SwitchCrystal(false, 1, "Switch2"));
+        }
+
         public void AddPlayer(Player player)
         {
             OnlinePlayers.Add(player.player_id, player);

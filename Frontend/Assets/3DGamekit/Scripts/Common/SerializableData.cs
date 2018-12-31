@@ -194,6 +194,48 @@ namespace Common
         public int owner_id;
         public CostConf costConf;
     }
+
+    [Serializable]
+    public class Door
+    {
+        public Door(bool _isopen, int _id, string _name)
+        {
+            isopen = _isopen;
+            id = _id;
+            name = _name;
+        }
+        public bool isopen;
+        public int id;
+        public string name;
+    }
+
+    [Serializable]
+    public class PressurePad
+    {
+        public PressurePad(bool _used, int _id, string _name)
+        {
+            used = _used;
+            id = _id;
+            name = _name;
+        }
+        public bool used;
+        public int id;
+        public string name;
+    }
+
+    [Serializable]
+    public class SwitchCrystal
+    {
+        public SwitchCrystal(bool _used, int _id, string _name)
+        {
+            used = _used;
+            id = _id;
+            name = _name;
+        }
+        public bool used;
+        public int id;
+        public string name;
+    }
 }
 
 

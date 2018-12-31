@@ -38,7 +38,7 @@ namespace Gamekit3D.GameCommands
         public void Send()
         {
             if (oneShot && isTriggered) return;
-            if (Time.time - lastSendTime < coolDown) return;
+            if (Time.time - lastSendTime < coolDown && lastSendTime != 0) return;
             isTriggered = true;
             lastSendTime = Time.time;
             interactiveObject.Receive(interactionType);
