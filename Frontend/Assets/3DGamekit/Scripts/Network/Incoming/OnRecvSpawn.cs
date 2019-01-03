@@ -27,8 +27,10 @@ namespace Gamekit3D.Network
                 return;
             }
             // Do not use transform.position.Set(x, y, z)
+
             go.transform.position = new Vector3(msg.entity.pos.x, msg.entity.pos.y, msg.entity.pos.z);
             go.transform.rotation = new Quaternion(msg.entity.rot.x, msg.entity.rot.y, msg.entity.rot.z, msg.entity.rot.w);
+
             if (!msg.entity.forClone)
             {
                 go.SetActive(true);

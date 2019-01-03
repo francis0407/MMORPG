@@ -13,6 +13,7 @@ namespace Gamekit3D.Network
             if (msg.sourceId != 0)
             {
                 source = networkEntities[msg.sourceId];
+                source.gameObject.SetActive(true);
             }
 
             if (source.behavior == null)

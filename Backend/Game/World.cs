@@ -38,7 +38,7 @@ namespace Backend.Game
             Doors.Add("DoorHuge1", new Door(false, 1, "DoorHuge1"));
             Doors.Add("DoorHuge2", new Door(false, 2, "DoorHuge2"));
 
-            PressurePads.Add("PressurePad1", new PressurePad(true, 1, "PressurePad1"));
+            PressurePads.Add("PressurePad1", new PressurePad(false, 1, "PressurePad1"));
             PressurePads.Add("PressurePad2", new PressurePad(false, 2, "PressurePad2"));
 
             SwitchCrystals.Add("Switch0", new SwitchCrystal(false, 0, "Switch0"));

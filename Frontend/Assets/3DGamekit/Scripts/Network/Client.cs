@@ -133,7 +133,7 @@ namespace Gamekit3D.Network
                 {// finish read a message, deserialize message to a class, invoke message receive callback
                     stream.Seek(0, SeekOrigin.Begin);
                     Message msg = (Message)formatter.Deserialize(stream);
-                    if (command != Command.S_PLAYER_MOVE && command != Command.S_SPRITE_MOVE && command != Command.S_SPAWN)
+                    if (command != Command.S_PLAYER_MOVE)
                         UnityEngine.Debug.Log(string.Format("Message {0}", command.ToString()));
                     try
                     {

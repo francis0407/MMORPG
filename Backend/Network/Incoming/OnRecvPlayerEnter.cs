@@ -115,7 +115,7 @@ namespace Backend.Network
                 }
             }
             player.refreshAttr();
-
+            player.currentHP = attribute.hp;
             scene.AddEntity(player);
 
             // send triger status

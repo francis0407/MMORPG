@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Common;
-
+using FrontEnd;
 namespace Gamekit3D.Network
 {
     public partial class Incoming
@@ -20,6 +20,9 @@ namespace Gamekit3D.Network
             rotation.w = msg.rotation.w;
             target.gameObject.SetActive(true);
             target.behavior.ReSpawn(msg.HP, position, rotation);
+            World.Instance.fPlayer.hp = World.Instance.fPlayer.health;
+            World.Instance.fPlayer.selfController.GetComponent<Damageable>().currentHitPoints = World.Instance.fPlayer.selfController.GetComponent<Damageable>().maxHitPoints;
+            GameObject.FindObjectOfType<HealthUI>().ChangeHitPointUI(null);
         }
     }
 }

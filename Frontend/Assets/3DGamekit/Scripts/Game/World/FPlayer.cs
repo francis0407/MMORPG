@@ -75,7 +75,7 @@ namespace FrontEnd
                 defence += item.Value.defence_value;
             }
 
-            if (health > old_health)
+            /*if (health > old_health)
             {
                 hp += health - old_health;
                 selfController.Damageable.currentHitPoints += health - old_health;
@@ -88,7 +88,9 @@ namespace FrontEnd
                 selfController.Damageable.currentHitPoints = System.Math.Min(
                     selfController.Damageable.maxHitPoints,
                     selfController.Damageable.currentHitPoints);
-            }
+            }*/
+            selfController.Damageable.maxHitPoints = health;
+            selfController.Damageable.currentHitPoints = Math.Min(selfController.Damageable.maxHitPoints, selfController.Damageable.currentHitPoints);
         }
         public void CheckWeapon()
         {

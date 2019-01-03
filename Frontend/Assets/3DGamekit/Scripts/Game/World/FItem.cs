@@ -112,11 +112,41 @@ namespace FrontEnd.Item
             }
             else
             {
-                newItem.health_value = System.Math.Max(1, luck + (rand.Next(0, 11) - 5));
-                newItem.speed_value = System.Math.Max(1, luck + (rand.Next(0, 11) - 5));
-                newItem.damage_value = System.Math.Max(1, luck + (rand.Next(0, 11) - 5));
-                newItem.intelligence_value = System.Math.Max(1, luck + (rand.Next(0, 11) - 5));
-                newItem.defence_value = System.Math.Max(1, luck + (rand.Next(0, 11) - 5));
+                // base value  10% luck ~ 20% luck
+                double dluck = luck;
+                newItem.health_value = (int)Math.Ceiling(dluck * (rand.Next(100, 200) / 1000d));
+                newItem.speed_value = (int)Math.Ceiling(dluck * (rand.Next(100, 200) / 1000d));
+                newItem.damage_value = (int)Math.Ceiling(dluck * (rand.Next(100, 200) / 1000d));
+                newItem.intelligence_value = (int)Math.Ceiling(dluck * (rand.Next(100, 200) / 1000d));
+                newItem.defence_value = (int)Math.Ceiling(dluck * (rand.Next(100, 200) / 1000d));
+                switch (type)
+                {
+                    case ItemType.Helmet: // intelligence first
+                        newItem.intelligence_value += luck * 9 / 10;
+                        newItem.health_value += luck / 10;
+                        break;
+                    case ItemType.Armour: // defence first
+                        newItem.defence_value += luck * 4 / 5;
+                        newItem.health_value += luck / 5;
+                        break;
+                    case ItemType.Shoes: // speed first
+                        newItem.speed_value += luck * 4 / 5;
+                        newItem.health_value += luck / 5;
+                        break;
+                    case ItemType.Leftweapon: // damage first
+                        newItem.damage_value += luck / 2;
+                        newItem.health_value += luck / 2;
+                        break;
+                    case ItemType.Rightweapon: // damage first
+                        newItem.damage_value += luck / 2;
+                        newItem.health_value += luck / 2;
+                        break;
+                    case ItemType.Legging: // speed & defence
+                        newItem.speed_value += luck / 3;
+                        newItem.defence_value += luck / 3;
+                        newItem.health_value += luck / 3;
+                        break;
+                }
                 newItem.silver_value = newItem.health_value + newItem.speed_value + newItem.damage_value + newItem.intelligence_value + newItem.defence_value;
             }
             return newItem;

@@ -283,7 +283,13 @@ namespace Gamekit3D
         {
             if ((damagedLayers.value & 1 << other.gameObject.layer) == 0)
                 return;
-           /* Debug.Log(string.Format("collid {0}", other.gameObject.name));
+            // Detect DestructiableBox Only
+           if (other.gameObject.name == "DestructibleBox")
+            {
+
+            }
+            
+            /* Debug.Log(string.Format("collid {0}", other.gameObject.name));
             NetworkEntity damager = other.gameObject.GetComponent<NetworkEntity>();
             if (damager == null)
                 return;

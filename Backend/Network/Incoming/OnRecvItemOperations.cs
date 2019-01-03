@@ -8,48 +8,94 @@ namespace Backend.Network
         private void OnRecvPlayerEquipItem(IChannel channel, Message message)
         {
             CPlayerEquipItem request = message as CPlayerEquipItem;
-            int res = GameDataBase.SQLNoneQuery(string.Format("Update Item Set status='Using' Where item_id={0};", request.item_id));
-            if (res != 1)
+            using (var conn = GameDataBase.GetConnection())
             {
-                ClientTipInfo(channel, "Oh! Equip Error!");
-                return;
+                using (var trans = conn.BeginTransaction())
+                {
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Update Item Set status='Using' Where item_id=@item_id;";
+                        cmd.Parameters.AddWithValue("item_id", request.item_id);
+                        int res = cmd.ExecuteNonQuery();
+                        if (res != 1)
+                        {
+                            ClientTipInfo(channel, "Equip Error!");
+                            trans.Rollback();
+                            return;
+                        }
+                    }
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Update Player Set items_count=items_count-1 Where player_id=@player_id";
+                        cmd.Parameters.AddWithValue("player_id", ((Player)channel.GetContent()).player_id);
+                        int res = cmd.ExecuteNonQuery();
+                        if (res != 1)
+                        {
+                            ClientTipInfo(channel, "Equip Error!");
+                            trans.Rollback();
+                            return;
+                        }
+                    }
+                    trans.Commit();
+                }
             }
-            else
-            {
-                SPlayerEquipItem response = new SPlayerEquipItem();
-                response.item_id = request.item_id;
-                channel.Send(response);
-                var player = (Player)channel.GetContent();
-                var ditem = player.inventory[request.item_id];
-                player.inventory.Remove(request.item_id);
-                player.wearing.Add(ditem.item_type, ditem);
-                player.refreshAttr();
-            }
+            SPlayerEquipItem response = new SPlayerEquipItem();
+            response.item_id = request.item_id;
+            channel.Send(response);
+            var player = (Player)channel.GetContent();
+            var ditem = player.inventory[request.item_id];
+            player.inventory.Remove(request.item_id);
+            player.wearing.Add(ditem.item_type, ditem);
+            player.refreshAttr();
         }
 
         private void OnRecvPlayerUnEquipItem(IChannel channel, Message message)
         {
             CPlayerUnEquipItem request = message as CPlayerUnEquipItem;
-            int res = GameDataBase.SQLNoneQuery(string.Format("Update Item Set status='Storing' Where item_id={0};", request.item_id));
-            if (res != 1)
+            using (var conn = GameDataBase.GetConnection())
             {
-                ClientTipInfo(channel, "Oh! UnEquip Error!");
-                return;
+                using (var trans = conn.BeginTransaction())
+                {
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Update Item Set status='Storing' Where item_id=@item_id;";
+                        cmd.Parameters.AddWithValue("item_id", request.item_id);
+                        int res = cmd.ExecuteNonQuery();
+                        if (res != 1)
+                        {
+                            ClientTipInfo(channel, "UnEquip Error!");
+                            trans.Rollback();
+                            return;
+                        }
+                    }
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Update Player Set items_count=items_count-1 Where player_id=@player_id;";
+                        cmd.Parameters.AddWithValue("player_id", ((Player)channel.GetContent()).player_id);
+                        int res = cmd.ExecuteNonQuery();
+                        if (res != 1)
+                        {
+                            ClientTipInfo(channel, "UnEquip Error!");
+                            trans.Rollback();
+                            return;
+                        }
+                    }
+                    trans.Commit();
+                }
             }
-            else
-            {
-                SPlayerUnEquipItem response = new SPlayerUnEquipItem();
-                response.item_id = request.item_id;
-                channel.Send(response);
-                FrontEnd.Item.DItem ditem = null;
-                var player = (Player)channel.GetContent();
-                foreach (var item in player.wearing)
-                    if (item.Value.item_id == request.item_id)
-                        ditem = item.Value;
-                player.wearing.Remove(ditem.item_type);
-                player.inventory.Add(ditem.item_id, ditem);
-                player.refreshAttr();
-            }
+           
+            SPlayerUnEquipItem response = new SPlayerUnEquipItem();
+            response.item_id = request.item_id;
+            channel.Send(response);
+            FrontEnd.Item.DItem ditem = null;
+            var player = (Player)channel.GetContent();
+            foreach (var item in player.wearing)
+                if (item.Value.item_id == request.item_id)
+                    ditem = item.Value;
+            player.wearing.Remove(ditem.item_type);
+            player.inventory.Add(ditem.item_id, ditem);
+            player.refreshAttr();
+            
         }
 
         private void OnRecvPlayerDropItem(IChannel channel, Message message)

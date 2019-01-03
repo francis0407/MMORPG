@@ -56,13 +56,10 @@ namespace Backend.Game
             }
 
             maxHP = attr_health;
-            if (attr_health > old_health)
-            {
-                currentHP += attr_health - old_health;
+            //if (attr_health > old_health)
+           //     currentHP += attr_health - old_health;
                 
-            }
-            else
-                currentHP = System.Math.Min(currentHP, attr_health);  
+             currentHP = System.Math.Min(currentHP, attr_health);  
         }
 
         override public void Update()
