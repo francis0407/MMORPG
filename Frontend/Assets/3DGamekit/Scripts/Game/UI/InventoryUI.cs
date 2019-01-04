@@ -27,6 +27,7 @@ public class InventoryUI : MonoBehaviour
             GameObject cloned = GameObject.Instantiate(InventoryCell);
             Button button = cloned.GetComponent<Button>();
             Sprite icon = GetAllIcons.icons[kv.Value.icon_name];
+            cloned.GetComponent<InventoryItem>().SetItem(kv.Value);
             button.image.sprite = icon;
 
             button.onClick.AddListener(delegate () {

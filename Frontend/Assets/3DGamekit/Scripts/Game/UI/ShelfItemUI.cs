@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Common;
-public class ShelfItemUI : MonoBehaviour
+using UnityEngine.EventSystems;
+
+public class ShelfItemUI : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
 {
     public string itemName;
     public GameObject cartContent;
@@ -18,6 +20,10 @@ public class ShelfItemUI : MonoBehaviour
 
     public ItemConf itemConf;
     public CostConf itemCost;
+
+    public AllItemInfoUI allItemInfoUI;
+
+    private Dictionary<string, string> itemInfoString = null;
     public void SetInfo(string name, string icon, Common.ItemType type, int cost)
     {
         textName.text = name;
@@ -36,18 +42,33 @@ public class ShelfItemUI : MonoBehaviour
 
         SetInfo(item.name, item.icon, item.type, cost.cost);
     }
+    public void OnMouseEnter()
+    {
+     //   allItemInfoUI.SetItemInfo("", "", "", "", "", button.image.sprite, itemConf.name, itemConf.type.ToString(), "", false, "5", gameObject.transform.position);
+    }
 
+    private void OnMouseOver()
+    {
+
+    }
+
+    private void OnMouseExit()
+    {
+        
+    }
     private void Awake()
     {
         if (cartContent != null)
         {
             handler = cartContent.GetComponent<CartGridUI>();
         }
+       // allItemInfoUI = GameObject.FindObjectOfType<AllItemInfoUI>();
     }
     // Use this for initialization
     void Start()
     {
-
+     //   allItemInfoUI = GameObject.FindObjectOfType<AllItemInfoUI>();
+        
     }
 
     // Update is called once per frame
@@ -70,7 +91,9 @@ public class ShelfItemUI : MonoBehaviour
         }
         button.image.sprite = sprite;
         textName.text = name;
+        itemName = name;
         textCost.text = "$5";
+        allItemInfoUI = GameObject.FindObjectOfType<AllItemInfoUI>();
     }
 
     public void AddToCart()
@@ -79,5 +102,49 @@ public class ShelfItemUI : MonoBehaviour
         //    handler.AddToCart(icon_name);
         if (handler != null)
             handler.AddToCart(itemConf, itemCost);
+    }
+
+    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+    {
+        if (itemInfoString == null)
+        {
+            itemInfoString = FrontEnd.Item.FItem.SpecificItemString(itemType, FrontEnd.World.Instance.fPlayer.intelligence);
+            itemInfoString["info"] = "";
+            if (itemType == ItemType.Others || textName.text == "HealthElixir")
+            {
+                itemInfoString["health"] = "";
+                itemInfoString["speed"] = "";
+                itemInfoString["intelligence"] = "";
+                itemInfoString["defence"] = "";
+                itemInfoString["damage"] = "";
+            }
+            if (itemType == ItemType.Others)
+                itemInfoString["info"] = "* 50";
+            if (textName.text == "HealthElixir")
+                itemInfoString["info"] = "恢复所有HP";
+        }
+
+        allItemInfoUI.SetItemInfo(
+            itemInfoString["health"],
+            itemInfoString["damage"],
+            itemInfoString["defence"],
+            itemInfoString["intelligence"],
+            itemInfoString["speed"],
+            button.image.sprite,
+            textName.text,
+            itemType.ToString(),
+            itemInfoString["info"],
+            itemCost.costType == CostType.Gold,
+            itemCost.cost.ToString(),
+            eventData.position);
+
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        var rect_trans = GetComponentInParent<RectTransform>();
+        if (rect_trans.rect.Contains(eventData.position))
+            return;
+        allItemInfoUI.ResetActive(eventData.position);
     }
 }

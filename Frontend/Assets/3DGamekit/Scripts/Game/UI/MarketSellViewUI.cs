@@ -93,6 +93,7 @@ public class MarketSellViewUI : MonoBehaviour
                 ItemPriceButton.GetComponent<Image>().color = new Color(1, 1, 1);
                 this.priceType = CostType.Silver;
             });
+            cloned.GetComponent<MarketSellItemUI>().SetItem(kv.Value);
             cloned.SetActive(true);
             cloned.transform.SetParent(ShelfGridContent.transform, false);
         }

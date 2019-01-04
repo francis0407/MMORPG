@@ -286,7 +286,7 @@ namespace Gamekit3D
             // Detect DestructiableBox Only
            if (other.gameObject.name == "DestructibleBox")
             {
-
+                  
             }
             
             /* Debug.Log(string.Format("collid {0}", other.gameObject.name));
