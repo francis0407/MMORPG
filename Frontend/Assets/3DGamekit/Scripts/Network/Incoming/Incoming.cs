@@ -53,6 +53,10 @@ namespace Gamekit3D.Network
             register.Register(Command.S_GET_MARKET_ITEMS, OnRecvGetMarketItems);
             register.Register(Command.S_TRIGER_ON_ENTER, OnRecvSTrigerOnEnter);
             register.Register(Command.S_TRIGER_STATUS, OnRecvTrigerStatus);
+            register.Register(Command.S_BROADCAST_MESSAGE, OnRecvBroadcastMessage);
+            register.Register(Command.S_AWARD_SILVER, OnRecvAwardSilver);
+            register.Register(Command.S_PLAYER_BEAT, OnRecvPlayerWinOrLose);
+            register.Register(Command.S_CHANGE_SCENE, OnRecvChangeScene);
             // DEBUG ...
             register.Register(Command.S_FIND_PATH, OnRecvFindPath);
         }

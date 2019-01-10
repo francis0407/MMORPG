@@ -90,6 +90,7 @@ namespace Common
         public int speed;
         public bool aggressive;
         public bool forClone;
+        public bool active = true;
         public DEntity parent;
         public List<DEntity> children = new List<DEntity>();
         public V3 pos = new V3();
@@ -227,6 +228,20 @@ namespace Common
     public class SwitchCrystal
     {
         public SwitchCrystal(bool _used, int _id, string _name)
+        {
+            used = _used;
+            id = _id;
+            name = _name;
+        }
+        public bool used;
+        public int id;
+        public string name;
+    }
+
+    [Serializable]
+    public class HealthBox
+    {
+        public HealthBox(bool _used, int _id, string _name)
         {
             used = _used;
             id = _id;

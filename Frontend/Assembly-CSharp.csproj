@@ -160,6 +160,9 @@
     <Compile Include="Assets\3DGamekit\Packages\SceneManagement\Runtime\ScreenFader.cs" />
     <Compile Include="Assets\3DGamekit\Packages\SceneManagement\Runtime\TransitionPoint.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SAttack.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SAwardSilver.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SBroadcastMessage.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SChangeScene.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SChatMessage.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SEntityDestroy.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SEquipWeapon.cs" />
@@ -175,6 +178,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOtherPlayerEnter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SOtherPlayerExit.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerAttribute.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerBeatMessage.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerDie.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerEnter.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\SPlayerInventory.cs" />
@@ -190,6 +194,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Common\BEMessage\STrigerMessages.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\Command.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\Delegate.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CChangeScene.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CChatMessage.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CCreateItem.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Common\FEMessage\CDamage.cs" />
@@ -332,6 +337,8 @@
     <Compile Include="Assets\3DGamekit\Scripts\Game\Timeline\TimeMachine\TimeMachineMixerBehaviour.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\Timeline\TimeMachine\TimeMachineTrack.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\AllItemInfoUI.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\UI\BroadcastTextUI.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\UI\BroadcastUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\ButtonHandler.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\CartGridUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\CartItemUI.cs" />
@@ -346,6 +353,7 @@
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\InventoryUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\ItemInfoUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\KeyUI.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Game\UI\LookAtCameraText.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketBuyViewUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketItemUI.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Game\UI\MarketSellItemUI.cs" />
@@ -385,6 +393,9 @@
     <Compile Include="Assets\3DGamekit\Scripts\Network\ICreatureBehavior.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\Incoming.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvAttack.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvAwardSilver.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvBroadcastMessage.cs" />
+    <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvChangeScene.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvChatMessage.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvDie.cs" />
     <Compile Include="Assets\3DGamekit\Scripts\Network\Incoming\OnRecvEntityDestory.cs" />

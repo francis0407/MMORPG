@@ -33,6 +33,10 @@ namespace Gamekit3D.Network
             {
                 TrigerOnEnter(msg.switchCrystal.name);
             }
+            if (msg.healthBox != null)
+            {
+                TrigerOnEnter(msg.healthBox.name);
+            }
         }
 
         private void OnRecvTrigerStatus(IChannel chanel, Message message)
@@ -47,6 +51,11 @@ namespace Gamekit3D.Network
             {
                 if (switchCrystal.used)
                     TrigerOnEnter(switchCrystal.name);
+            }
+            foreach (var healthBox in msg.healthBoxes)
+            {
+                if (healthBox.used)
+                    TrigerOnEnter(healthBox.name);
             }
         }
     }

@@ -28,6 +28,9 @@ public class AllItemInfoUI : MonoBehaviour
     public float UIWidth = 0;
     public float UIHeight = 0;
 
+    DateTime activeTime;
+    string myTag;
+
     private void Awake()
     {
             
@@ -37,6 +40,7 @@ public class AllItemInfoUI : MonoBehaviour
     {
         int count = transform.parent.childCount;
         transform.SetSiblingIndex(count - 1);
+        activeTime = DateTime.Now;
     }
 
     public void SetItemInfo(
@@ -51,9 +55,14 @@ public class AllItemInfoUI : MonoBehaviour
         string _other_info,
         bool _isGold,
         string _price_value,
-        Vector2 _mouse_pos)
+        Vector2 _mouse_pos,
+        string tag)
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        if (tag == myTag)
+            return;
+        else
+            myTag = tag;
         health_value.text = _health_value;
         damage_value.text = _damage_value;
         defence_value.text = _defence_value;
@@ -76,6 +85,8 @@ public class AllItemInfoUI : MonoBehaviour
 
     public void ResetActive(Vector2 _mouse_pos)
     {
+        if (activeTime.AddMilliseconds(100) > DateTime.Now)
+            return;
         if (_mouse_pos.x >= transform.position.x - UIWidth / 2 && _mouse_pos.x <= transform.position.x + UIWidth / 2
             && _mouse_pos.y >= transform.position.y - UIHeight / 2 && _mouse_pos.y <= transform.position.y + UIHeight / 2)
         {
@@ -90,6 +101,7 @@ public class AllItemInfoUI : MonoBehaviour
         }
         Debug.Log(string.Format("{0} {1}", _mouse_pos.x, _mouse_pos.y));
         gameObject.SetActive(false);
+        myTag = "";
     }
 }
 

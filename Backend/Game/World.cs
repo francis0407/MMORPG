@@ -31,6 +31,7 @@ namespace Backend.Game
 
         public Dictionary<string, SwitchCrystal> SwitchCrystals = new Dictionary<string, SwitchCrystal>();
 
+        public Dictionary<string, HealthBox> HealthBoxes = new Dictionary<string, HealthBox>();
         public World()
         {
             // init trigers
@@ -42,7 +43,11 @@ namespace Backend.Game
             PressurePads.Add("PressurePad2", new PressurePad(false, 2, "PressurePad2"));
 
             SwitchCrystals.Add("Switch0", new SwitchCrystal(false, 0, "Switch0"));
-            SwitchCrystals.Add("Switch2", new SwitchCrystal(false, 1, "Switch2"));
+            SwitchCrystals.Add("Switch1", new SwitchCrystal(false, 1, "Switch1"));
+            SwitchCrystals.Add("Switch2", new SwitchCrystal(false, 2, "Switch2"));
+
+            HealthBoxes.Add("HealthCrate1", new HealthBox(false, 0, "HealthCrate1"));
+            HealthBoxes.Add("HealthCrate2", new HealthBox(false, 1, "HealthCrate2"));
         }
 
         public void AddPlayer(Player player)

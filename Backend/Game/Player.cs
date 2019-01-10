@@ -93,6 +93,10 @@ namespace Backend.Game
                 currentHP = currentHP - hpDec;
                 if (currentHP == 0)
                 {
+                    if (enemy.entityType == EntityType.PLAYER)
+                    {
+                        BeatPlayer((Player)enemy, this);
+                    }
                     OnDie();
                     World.Instance.DelayInvoke(5, OnReSpawn);
                 }
@@ -128,6 +132,7 @@ namespace Backend.Game
         override public DEntity ToDEntity()
         {
             DEntity entity = base.ToDEntity();
+            entity.name = this.user;
             return entity;
         }
 
@@ -178,17 +183,95 @@ namespace Backend.Game
 
         public void Award()
         {
-            
+
+        }
+
+        public void BeatPlayer(Player winner, Player loser)
+        {
+            int award = 0;
+            int remain = 0;
+            using (var conn = DataBase.GameDataBase.GetConnection())
+            {
+                using (var trans = conn.BeginTransaction())
+                {                
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Select silver From Player Where player_id=@player_id";
+                        cmd.Parameters.AddWithValue("player_id", loser.player_id);
+                        var res = cmd.ExecuteScalar();
+                        if (res == null)
+                            return;
+                        award = (int)res / 10;
+                        remain = (int)res - award;
+                    }
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Update Player Set silver=@remain Where player_id=@player_id";
+                        cmd.Parameters.AddWithValue("remain", remain);
+                        cmd.Parameters.AddWithValue("player_id", loser.player_id);
+                        var res = cmd.ExecuteNonQuery();
+                        if (res != 1)
+                        {
+                            trans.Rollback();
+                            return;
+                        }
+                    }
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Update Player Set silver=silver+@award Where player_id=@player_id";
+                        cmd.Parameters.AddWithValue("player_id", winner.player_id);
+                        cmd.Parameters.AddWithValue("award", award);
+                        var res = cmd.ExecuteNonQuery();
+                        if (res != 1)
+                        {
+                            trans.Rollback();
+                            return;
+                        }
+                    }
+                    trans.Commit();
+                } // trans
+            } // conn
+            SPlayerBeatMessage winMsg = new SPlayerBeatMessage();
+            winMsg.win = true;
+            winMsg.award = award;
+            winner.connection.Send(winMsg);
+            SPlayerBeatMessage loseMsg = new SPlayerBeatMessage();
+            loseMsg.win = false;
+            loseMsg.award = award;
+            loser.connection.Send(loseMsg);
+            SBroadcastMessage sbm = new SBroadcastMessage();
+            sbm.message = string.Format("{0} 击败了 {1}, 掠夺{2}银币", winner.user, loser.user, award);
+            World.Instance.Broundcast(sbm);
         }
 
         public void AwardItem()
         {
-
+            CCreateItem msg = new CCreateItem();
+            msg.luck = attr_intelligence;
+            msg.fromFrontend = false;
+            Network.Incoming.OnRecvPlayerTakeItem(connection, msg);
         }
 
         public void AwardSilver()
         {
-
+            SAwardSilver msg = new SAwardSilver();
+            msg.count = attr_intelligence * 4;
+            using (var conn = DataBase.GameDataBase.GetConnection())
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "Update Player Set silver=silver+@count Where player_id=@player_id;";
+                    cmd.Parameters.AddWithValue("count", msg.count);
+                    cmd.Parameters.AddWithValue("player_id", player_id);
+                    int res = cmd.ExecuteNonQuery();
+                    if (res != 1)
+                    {
+                        Network.Incoming.ClientTipInfo(connection, "Can't add silver");
+                        return;
+                    }
+                }
+            }
+            connection.Send(msg);
         }
 
         public void SendSpawn(DEntity entity)

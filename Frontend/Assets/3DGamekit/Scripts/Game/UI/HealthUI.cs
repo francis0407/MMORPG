@@ -55,5 +55,15 @@ namespace Gamekit3D
                 m_HealthIconAnimators[i].SetBool(m_HashActivePara, HPpercent >= i + 1);
             }
         }
+        private void Update()
+        {
+            if (m_representedDamageable == null)
+                return;
+            int HPpercent = (int)System.Math.Ceiling(m_representedDamageable.hpPercent);
+            for (int i = 0; i < 5; i++)
+            {
+                m_HealthIconAnimators[i].SetBool(m_HashActivePara, HPpercent >= i + 1);
+            }
+        }
     }
 }

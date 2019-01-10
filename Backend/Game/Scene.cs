@@ -11,7 +11,7 @@ namespace Backend.Game
         private Dictionary<int, Sprite> sprites = new Dictionary<int, Sprite>();
         private Dictionary<int, Item> items = new Dictionary<int, Item>();
         private PathFinding path = new PathFinding();
-
+        static public Dictionary<string, V3> initPos = new Dictionary<string, V3>();
         public void Load(DSceneAsset asset)
         {
             name = asset.scene;
@@ -36,6 +36,8 @@ namespace Backend.Game
             {
                 kv.Value.Spawn();
             }
+            initPos["Level2"] = new V3(-1.54978f, -3.50585f, 28.5845f);
+            initPos["Level1"] = new V3(23.95f, 1.578f, 64.29f);
         }
 
         public bool FindPath(Point3d start, Point3d end, LinkedList<Point3d> steps)

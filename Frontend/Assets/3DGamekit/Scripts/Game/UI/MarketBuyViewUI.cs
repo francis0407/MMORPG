@@ -68,14 +68,16 @@ public class MarketBuyViewUI : MonoBehaviour
         var marketItems = World.Instance.MarketItems;
         if (marketItems == null)
             return;
+        int i = 0;
         foreach (var kv in marketItems)
         {
+            i++;
             GameObject cloned = GameObject.Instantiate(BuyShelfItem);
             Button button = cloned.GetComponentInChildren<Button>();
             Sprite icon = GetAllIcons.icons[kv.Value.ditem.icon_name];
             button.image.sprite = icon;
             cloned.GetComponent<MarketItemUI>().Set(kv.Value.ditem.name, kv.Value.costConf.cost, kv.Value.costConf.costType);
-            cloned.GetComponent<MarketItemUI>().SetItem(FrontEnd.Item.FItem.FromDItem(kv.Value.ditem));
+            cloned.GetComponent<MarketItemUI>().SetItem(FrontEnd.Item.FItem.FromDItem(kv.Value.ditem), i);
             button.onClick.AddListener(delegate () {
                 ItemInfo.SetActive(true);
                 ItemId = kv.Key;

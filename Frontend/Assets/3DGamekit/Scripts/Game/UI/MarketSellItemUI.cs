@@ -9,10 +9,11 @@ class MarketSellItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
     private FItem item;
     public AllItemInfoUI allItemInfoUI;
-
-    public void SetItem(FItem _item)
+    int myTag;
+    public void SetItem(FItem _item, int i)
     {
         item = _item;
+        myTag = i;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -29,13 +30,15 @@ class MarketSellItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             "",
             false,
             item.silver_value.ToString(),
-            eventData.position);
+            eventData.position,
+            "Sell"+myTag.ToString());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         var rect_trans = GetComponentInParent<RectTransform>();
-        if (rect_trans.rect.Contains(eventData.position))
+        var _pos = Input.mousePosition;
+        if (rect_trans.rect.Contains(eventData.position) || rect_trans.rect.Contains(new Vector2(_pos.x, _pos.y)))
             return;
         allItemInfoUI.ResetActive(eventData.position);
     }

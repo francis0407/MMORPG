@@ -9,6 +9,7 @@ namespace Common
         public Door[] doors;
         public PressurePad[] pressurePads;
         public SwitchCrystal[] switchCrystals;
+        public HealthBox[] healthBoxes;
     }
 
     [Serializable]
@@ -17,5 +18,6 @@ namespace Common
         public STrigerOnEnter() : base(Command.S_TRIGER_ON_ENTER) { }
         public PressurePad pressurePad;
         public SwitchCrystal switchCrystal;
+        public HealthBox healthBox;
     }
 }

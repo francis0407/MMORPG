@@ -67,6 +67,10 @@ namespace Gamekit3D
             {
                 SwitchPauseState();
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                gameObject.SetActive(true);
+            }
         }
 
         protected void SwitchPauseState()

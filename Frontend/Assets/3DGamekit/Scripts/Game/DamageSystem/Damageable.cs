@@ -24,9 +24,11 @@ namespace Gamekit3D
         [Range(0.0f, 360.0f)]
         [FormerlySerializedAs("hitForwardRoation")] //SHAME!
         public float hitForwardRotation = 360.0f;
-
+        private int hp;
         public bool isInvulnerable { get; set; }
-        public int currentHitPoints { get; set; }
+        public int currentHitPoints { get { return hp; } set {
+                hp = value;
+            } }
 
         public double hpPercent {
             get {
@@ -47,7 +49,7 @@ namespace Gamekit3D
 
         void Start()
         {
-            ResetDamage();
+            //ResetDamage();
             m_Collider = GetComponent<Collider>();
         }
 

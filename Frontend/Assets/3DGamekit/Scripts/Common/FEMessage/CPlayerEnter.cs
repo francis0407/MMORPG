@@ -7,5 +7,6 @@ namespace Common
     public class CPlayerEnter : Message
     {
         public CPlayerEnter() : base(Command.C_PLAYER_ENTER) { }
+        public string level;
     }
 }

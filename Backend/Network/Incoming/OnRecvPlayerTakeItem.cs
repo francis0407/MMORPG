@@ -7,7 +7,7 @@ namespace Backend.Network
 {
     public partial class Incoming
     {
-        private void OnRecvPlayerTakeItem(IChannel channel, Message message)
+        static public void OnRecvPlayerTakeItem(IChannel channel, Message message)
         {
             SGetItem response = new SGetItem();
             CCreateItem request = message as CCreateItem;
@@ -73,6 +73,12 @@ namespace Backend.Network
                     response.success = true;
                     response.dItem = item;
                     channel.Send(response);
+                    if (request.fromFrontend)
+                    {
+                        SBroadcastMessage bmsg = new SBroadcastMessage();
+                        bmsg.message = string.Format("{0} 通过寻宝获得物品 {1}", player.user, response.dItem.name);
+                        World.Instance.Broundcast(bmsg);
+                    }
                     
                 } // trans
             } // conn

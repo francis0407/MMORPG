@@ -21,10 +21,10 @@ namespace Backend.Game
         // target position when I call FindPath last time
         private Point3d m_targetPos = new Point3d();
         DateTime m_lastMoveTS = DateTime.UnixEpoch;
-
+        private object hitLock = new object();
         const float DistanceEpsilon = 3.0f;
         const float LongDistance = 100.0f;
-
+        private bool dead = false;
         
 
         public void EnemyClosing(Creature creature)
@@ -42,17 +42,18 @@ namespace Backend.Game
         public override void OnHit(Creature enemy, int hpDec)
         {
             // Use lock to prevent multi-hit
-
-                if (currentHP == 0)
+            lock (hitLock)
+            {
+                if (currentHP == 0 && dead)
                     return;
 
                 if (IsInvulnerable())
                     return;
-
+                m_lastHitTS = DateTime.Now;
                 // TODO calculate hit point decrease by creature's attribute
                 hpDec = currentHP - hpDec < 0 ? currentHP : hpDec;
                 currentHP = currentHP - hpDec;
-            
+
                 SHit hit = new SHit();
                 hit.decHP = hpDec;
                 hit.sourceId = enemy != null ? enemy.entityId : 0;
@@ -61,14 +62,14 @@ namespace Backend.Game
 
                 if (currentHP == 0)
                 {
-                    OnDie();
-                    World.Instance.DelayInvoke(20, OnReSpawn);
+                    OnDie((Player)enemy);
+                    //World.Instance.DelayInvoke(20, OnReSpawn);
                 }
                 else
                 {
                     EnemyClosing(enemy);
                 }
-            
+            }
         }
 
         public override void Update()
@@ -78,6 +79,7 @@ namespace Backend.Game
 
         private void ChaseEnemy()
         {
+            if (dead) return;
             switch (m_chaseState)
             {
                 case ChaseState.IDLE:
@@ -209,6 +211,34 @@ namespace Backend.Game
             Console.WriteLine("{0} reset", name);
         }
 
+        public override DEntity ToDEntity()
+        {
+            DEntity dEntity = base.ToDEntity();
+            dEntity.active = !dead;
+            return dEntity;
+        }
+
+        private void OnDie(Player enemy)
+        {
+            OnDie();
+            Random random = new Random();
+            int r = random.Next(0, 10);
+            if (r > 8)
+            {
+                enemy.AwardItem();
+                SBroadcastMessage msg = new SBroadcastMessage();
+                msg.message = string.Format("{0} 杀死了{1} 获得装备奖励", enemy.user, name);
+                World.Instance.Broundcast(msg);
+            }
+            else
+            {
+                enemy.AwardSilver();
+                SBroadcastMessage msg = new SBroadcastMessage();
+                msg.message = string.Format("{0} 杀死了{1} 获得银币奖励", enemy.user, name);
+                World.Instance.Broundcast(msg);
+            }
+        }
+
         public override void OnDie()
         {
             SSpriteDie msg = new SSpriteDie();
@@ -216,6 +246,8 @@ namespace Backend.Game
             Broadcast(msg);
             UpdateActive = false;
             Console.WriteLine("{0} die", name);
+            dead = true;
+
         }
         private void SendMove(MoveState state, Point3d position, int targetId = 0)
         {

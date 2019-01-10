@@ -78,9 +78,22 @@ namespace Gamekit3D
             {
                 msg.pressurePad = new PressurePad(false, 0, name);
             }
-            if (name.Contains("Switch"))
+            else if (name.Contains("Switch"))
             {
                 msg.switchCrystal = new SwitchCrystal(false, 0, name);
+            }
+            else if (name.Contains("HealthCrate"))
+            {
+                msg.healthBox = new HealthBox(false, 0, name);
+                World.Instance.fPlayer.ResetHP();
+            }
+            else if (name.Contains("Trans"))
+            {
+                CChangeScene cs = new CChangeScene();
+                cs.player_id = 0;
+                cs.level = "Level2";
+                Client.Instance.Send(cs);
+                return;
             }
             Client.Instance.Send(msg);
         }

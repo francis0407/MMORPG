@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+using System.Text;
 
 public class GameStart : MonoBehaviour
 {
@@ -99,13 +101,23 @@ public class GameStart : MonoBehaviour
         bool save = true;
         CLogin login = new CLogin();
         login.user = username;
-        login.password = password;
+        login.password = MD5(password);
         if (save)
         {
             PlayerPrefs.SetString(USERNAME, username);
             PlayerPrefs.SetString(PASSWORD, password);
         }
         Client.Instance.Send(login);
+    }
+
+    static string MD5(string str)
+    {
+        var md5 = new MD5CryptoServiceProvider();
+        var md5result = md5.ComputeHash(System.Text.Encoding.Default.GetBytes(str));
+        StringBuilder sb = new StringBuilder();
+        foreach (byte i in md5result)
+            sb.Append(i.ToString("x2"));
+        return sb.ToString();
     }
 
     public void OnRegisterClicked()
@@ -119,12 +131,13 @@ public class GameStart : MonoBehaviour
         }
         CRegister register = new CRegister();
         register.user = username;
-        register.password = password;
+        register.password = MD5(password);
         Client.Instance.Send(register);
     }
 
     public void PlayerEnter(string scene)
     {
+      //  scene = "Level2";
         Application.backgroundLoadingPriority = ThreadPriority.Low;
         m_menuBackground.SetActive(false);
         m_progressBar.SetActive(true);

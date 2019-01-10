@@ -9,7 +9,7 @@ namespace Backend.Network
         {
             CPlayerAttack request = message as CPlayerAttack;
             Player player = (Player)World.Instance.GetEntity(request.player);
-            System.Console.WriteLine("Attacking");
+            //System.Console.WriteLine("Attacking");
             if (request.target != 0)
             {
                 Creature target = World.Instance.GetEntity(request.target) as Creature;
@@ -17,7 +17,7 @@ namespace Backend.Network
                 {
                     // player attack other creature
                     target.OnHit(player, player.attr_damage);
-                    System.Console.WriteLine("Attack");
+                  //  System.Console.WriteLine("Attack");
                     player.OnAttack(target);
                 }
             }

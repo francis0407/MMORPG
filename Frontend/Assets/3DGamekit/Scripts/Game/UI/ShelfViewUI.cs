@@ -16,6 +16,8 @@ public class ShelfViewUI : MonoBehaviour
 
     private void OnDisable()
     {
+
+        //GameObject.FindObjectOfType<AllItemInfoUI>().gameObject.SetActive(false);
         PlayerMyController.Instance.EnabledWindowCount--;
     }
 

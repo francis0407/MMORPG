@@ -38,13 +38,14 @@ namespace Backend.Network
             register.Register(Command.C_HEART_BEAT, OnRecvHeartBeat);
             register.Register(Command.C_PLAYER_EXIT, OnRecvPlayerExit);
             register.Register(Command.C_TRIGER_ON_ENTER, OnRecvTrigerOnEnter);
+            register.Register(Command.C_CHANGE_SCENE, OnRecvChangeScene);
             // DEBUG ..
             register.Register(Command.C_FIND_PATH, OnRecvFindPath);
 
         }
 
 
-        static void ClientTipInfo(IChannel channel, string info)
+        static public void ClientTipInfo(IChannel channel, string info)
         {
             STipInfo tipInfo = new STipInfo();
             tipInfo.info = info;

@@ -27,7 +27,7 @@ public class InventoryUI : MonoBehaviour
             GameObject cloned = GameObject.Instantiate(InventoryCell);
             Button button = cloned.GetComponent<Button>();
             Sprite icon = GetAllIcons.icons[kv.Value.icon_name];
-            cloned.GetComponent<InventoryItem>().SetItem(kv.Value);
+            cloned.GetComponent<InventoryItem>().SetItem(kv.Value, kv.Value.item_id);
             button.image.sprite = icon;
 
             button.onClick.AddListener(delegate () {
@@ -99,6 +99,7 @@ public class InventoryUI : MonoBehaviour
         {
             Destroy(transform.gameObject);
         }
+       // GameObject.FindObjectOfType<AllItemInfoUI>().gameObject.SetActive(false);
         PlayerMyController.Instance.EnabledWindowCount--;
     }
 

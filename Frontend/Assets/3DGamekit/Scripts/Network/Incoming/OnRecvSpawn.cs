@@ -11,12 +11,15 @@ namespace Gamekit3D.Network
             GameObject go = null;
             if (msg.entity.type == (int)EntityType.PLAYER)
             {
-                go = CloneGameObject(msg.entity.name, msg.entity.entityID);
+                go = CloneGameObject("Ellen", msg.entity.entityID);
+                NetworkEntity entity = go.GetComponent<NetworkEntity>();
+                entity.entityName = msg.entity.name;
             }
             else if (networkObjects.TryGetValue(msg.entity.name, out go))
             {
                 NetworkEntity entity = go.GetComponent<NetworkEntity>();
                 entity.entityId = msg.entity.entityID;
+                
                 if (!networkEntities.ContainsKey(entity.entityId))
                 {
                     networkEntities.Add(entity.entityId, entity);
@@ -73,6 +76,9 @@ namespace Gamekit3D.Network
                         mine.enabled = false;
                     }
                 }
+            }
+            if (!msg.entity.active) {
+                go.SetActive(false);
             }
         }
     }

@@ -46,6 +46,10 @@ namespace Common
         S_GET_MARKET_ITEMS,
         S_SELL_MARKET_ITEM,
         S_BUY_MARKET_ITEM,
+        S_BROADCAST_MESSAGE,
+        S_AWARD_SILVER,
+        S_PLAYER_BEAT,
+        S_CHANGE_SCENE,
         SEND,
 
         CBEGIN,
@@ -75,6 +79,7 @@ namespace Common
         C_GET_MARKET_ITEMS,
         C_BUY_MARKET_ITEM,
         C_SELL_MARKET_ITEM,
+        C_CHANGE_SCENE,
         CEND,
 
         DEBUGGING, // THE FOLLOWING MESSEGES ARE FOR DEBUGGING

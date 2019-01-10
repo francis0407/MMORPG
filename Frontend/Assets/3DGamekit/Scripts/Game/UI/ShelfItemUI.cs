@@ -136,14 +136,16 @@ public class ShelfItemUI : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
             itemInfoString["info"],
             itemCost.costType == CostType.Gold,
             itemCost.cost.ToString(),
-            eventData.position);
+            eventData.position,
+            "mall" + textName.text);
 
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         var rect_trans = GetComponentInParent<RectTransform>();
-        if (rect_trans.rect.Contains(eventData.position))
+        var _pos = Input.mousePosition;
+        if (rect_trans.rect.Contains(eventData.position) || rect_trans.rect.Contains(new Vector2(_pos.x, _pos.y)))
             return;
         allItemInfoUI.ResetActive(eventData.position);
     }

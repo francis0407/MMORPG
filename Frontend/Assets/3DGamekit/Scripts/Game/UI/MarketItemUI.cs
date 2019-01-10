@@ -14,6 +14,8 @@ public class MarketItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private FItem item;
     public AllItemInfoUI allItemInfoUI;
     private CostConf costConf;
+    bool infoActive = false;
+    int myTag;
     public void Set(string name, int cost, CostType costType)
     {
         ItemName.GetComponent<Text>().text = name;
@@ -25,9 +27,10 @@ public class MarketItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         costConf.costType = costType;
     }
 
-    public void SetItem(FItem _item)
+    public void SetItem(FItem _item, int i)
     {
         item = _item;
+        myTag = i;
     }
     private void Awake()
     {
@@ -51,11 +54,15 @@ public class MarketItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void Update()
     {
-        
+        if (infoActive)
+        {
+
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        infoActive = true;
         allItemInfoUI.SetItemInfo(
             item.health_value.ToString(),
             item.damage_value.ToString(),
@@ -68,13 +75,15 @@ public class MarketItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             "",
             costConf.costType == CostType.Gold,
             costConf.cost.ToString(),
-            eventData.position);
+            eventData.position,
+            "market" + myTag.ToString());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         var rect_trans = GetComponentInParent<RectTransform>();
-        if (rect_trans.rect.Contains(eventData.position))
+        var _pos = Input.mousePosition;
+        if (rect_trans.rect.Contains(eventData.position) || rect_trans.rect.Contains(new Vector2(_pos.x, _pos.y)))
             return;
         allItemInfoUI.ResetActive(eventData.position);
     }

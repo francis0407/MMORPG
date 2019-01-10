@@ -1,5 +1,5 @@
 ﻿using Common;
-
+using UnityEngine;
 namespace Gamekit3D.Network
 {
     public partial class Incoming
@@ -13,6 +13,7 @@ namespace Gamekit3D.Network
                 return;
 
             self.behavior.Jump();
+            //GameObject.FindObjectOfType<BroadcastTextUI>().AddNewMessage("jump");
         }
 
     }

@@ -32,6 +32,18 @@ namespace Backend.Network
             Player player = new Player(channel);
             player.player_id = (int)hasUser;
             string scene = "Level1";
+            using (var conn = DataBase.GameDataBase.GetConnection())
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "Select scene From Player Where player_id = @player_id";
+                    cmd.Parameters.AddWithValue("player_id", player.player_id);
+                    var res = cmd.ExecuteScalar();
+                    if (res == null)
+                        return;
+                    scene = (string) res;
+                }
+            }
             response.user = request.user;
             response.token = request.user;
             response.id = player.entityId; 
@@ -49,6 +61,7 @@ namespace Backend.Network
             player.FromDEntity(dentity);
             player.forClone = false;
             player.token = response.user;
+            player.user = response.user;
 
         }
     }

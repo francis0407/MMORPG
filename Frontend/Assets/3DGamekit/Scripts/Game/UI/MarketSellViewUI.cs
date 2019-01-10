@@ -71,8 +71,10 @@ public class MarketSellViewUI : MonoBehaviour
         }
 
         var inventory = World.Instance.fPlayer.inventory;
+        int i = 0;
         foreach (var kv in inventory)
         {
+            i++;
             GameObject cloned = GameObject.Instantiate(SellShelfItem);
             Button button = cloned.GetComponentInChildren<Button>();
             Sprite icon = GetAllIcons.icons[kv.Value.icon_name];
@@ -93,7 +95,7 @@ public class MarketSellViewUI : MonoBehaviour
                 ItemPriceButton.GetComponent<Image>().color = new Color(1, 1, 1);
                 this.priceType = CostType.Silver;
             });
-            cloned.GetComponent<MarketSellItemUI>().SetItem(kv.Value);
+            cloned.GetComponent<MarketSellItemUI>().SetItem(kv.Value, i);
             cloned.SetActive(true);
             cloned.transform.SetParent(ShelfGridContent.transform, false);
         }
@@ -107,6 +109,7 @@ public class MarketSellViewUI : MonoBehaviour
     private void OnDisable()
     {
 
+        //GameObject.FindObjectOfType<AllItemInfoUI>().gameObject.SetActive(false);
     }
 
     // Use this for initialization

@@ -8,5 +8,6 @@ namespace Common
         public CTrigerOnEnter() : base(Command.C_TRIGER_ON_ENTER) { }
         public SwitchCrystal switchCrystal;
         public PressurePad pressurePad;
+        public HealthBox healthBox;
     }
 }

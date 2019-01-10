@@ -13,6 +13,7 @@ namespace Gamekit3D.Network
         public ICreatureBehavior behavior;
 
         public NetworkEntity parent;
+        public string entityName = "name";
         public List<NetworkEntity> children = new List<NetworkEntity>();
         public int EntityId { get { return entityId; } }
         public EntityType entityType;

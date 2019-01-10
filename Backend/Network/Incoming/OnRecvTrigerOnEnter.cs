@@ -13,6 +13,8 @@ namespace Backend.Network
         {
             CTrigerOnEnter msg = message as CTrigerOnEnter;
             STrigerOnEnter response = new STrigerOnEnter();
+            Player player = channel.GetContent() as Player;
+
             if (msg.pressurePad != null)
             {
                 var pressurePad = World.Instance.PressurePads[msg.pressurePad.name];
@@ -27,8 +29,15 @@ namespace Backend.Network
                     response.switchCrystal = msg.switchCrystal;
                 switchCrystal.used = true;
             }
+            if (msg.healthBox != null)
+            {
+                var healthBox = World.Instance.HealthBoxes[msg.healthBox.name];
+                if (!healthBox.used)
+                    response.healthBox = msg.healthBox;
+                healthBox.used = true;
+                player.currentHP = player.maxHP;
+            }
 
-            Player player = channel.GetContent() as Player;
             player.Broadcast(response);
         }
     }

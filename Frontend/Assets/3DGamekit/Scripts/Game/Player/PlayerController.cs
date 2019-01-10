@@ -842,6 +842,9 @@ namespace Gamekit3D
                     break;
                 case MsgType.DEAD:
                     {
+                        // frontend does not know the actual HP of other players
+                        if (!IsMine)
+                            return;
                         Damageable.DamageMessage damageData = (Damageable.DamageMessage)data;
                         Die(damageData);
                     }

@@ -155,37 +155,37 @@ namespace FrontEnd.Item
         static public Dictionary<string, string> SpecificItemString(ItemType itemType, double luck)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
-            result["health"] = (luck * 0.1).ToString() + "---" + (luck * 0.2).ToString();
-            result["speed"] = (luck * 0.1).ToString() + "---" + (luck * 0.2).ToString();
-            result["damage"] = (luck * 0.1).ToString() + "---" + (luck * 0.2).ToString();
-            result["intelligence"] = (luck * 0.1).ToString() + "---" + (luck * 0.2).ToString();
-            result["defence"] = (luck * 0.1).ToString() + "---" + (luck * 0.2).ToString();
+            result["health"] = Math.Ceiling((luck * 0.1)).ToString() + "---" + Math.Ceiling((luck * 0.2)).ToString();
+            result["speed"] = Math.Ceiling((luck * 0.1)).ToString() + "---" + Math.Ceiling((luck * 0.2)).ToString();
+            result["damage"] = Math.Ceiling((luck * 0.1)).ToString() + "---" + Math.Ceiling((luck * 0.2)).ToString();
+            result["intelligence"] = Math.Ceiling((luck * 0.1)).ToString() + "---" + Math.Ceiling((luck * 0.2)).ToString();
+            result["defence"] = Math.Ceiling((luck * 0.1)).ToString() + "---" + Math.Ceiling((luck * 0.2)).ToString();
             switch (itemType)
             {
                 case ItemType.Helmet:
-                    result["intelligence"] = (luck * 1).ToString() + "---" + (luck * 1.1).ToString();
-                    result["health"] = (luck * 0.2).ToString() + "---" + (luck * 0.3).ToString();
+                    result["intelligence"] = Math.Ceiling((luck * 1)).ToString() + "---" + Math.Ceiling((luck * 1.1)).ToString();
+                    result["health"] = Math.Ceiling((luck * 0.2)).ToString() + "---" + Math.Ceiling((luck * 0.3)).ToString();
                     break;
                 case ItemType.Armour:
-                    result["defence"] = (luck * 0.9).ToString() + "---" + (luck * 1.0).ToString();
-                    result["health"] = (luck * 0.3).ToString() + "---" + (luck * 0.4).ToString();
+                    result["defence"] = Math.Ceiling((luck * 0.9)).ToString() + "---" + Math.Ceiling((luck * 1.0)).ToString();
+                    result["health"] = Math.Ceiling((luck * 0.3)).ToString() + "---" + Math.Ceiling((luck * 0.4)).ToString();
                     break;
                 case ItemType.Shoes:
-                    result["speed"] = (luck * 0.9).ToString() + "---" + (luck * 1.0).ToString();
-                    result["health"] = (luck * 0.3).ToString() + "---" + (luck * 0.4).ToString();
+                    result["speed"] = Math.Ceiling((luck * 0.9)).ToString() + "---" + Math.Ceiling((luck * 1.0)).ToString();
+                    result["health"] = Math.Ceiling((luck * 0.3)).ToString() + "---" + Math.Ceiling((luck * 0.4)).ToString();
                     break;
                 case ItemType.Leftweapon:
-                    result["damage"] = (luck * 0.6).ToString() + "---" + (luck * 0.7).ToString();
-                    result["health"] = (luck * 0.6).ToString() + "---" + (luck * 0.7).ToString();
+                    result["damage"] = Math.Ceiling((luck * 0.6)).ToString() + "---" + Math.Ceiling((luck * 0.7)).ToString();
+                    result["health"] = Math.Ceiling((luck * 0.6)).ToString() + "---" + Math.Ceiling((luck * 0.7)).ToString();
                     break;
                 case ItemType.Rightweapon:
-                    result["damage"] = (luck * 0.6).ToString() + "---" + (luck * 0.7).ToString();
-                    result["health"] = (luck * 0.6).ToString() + "---" + (luck * 0.7).ToString();
+                    result["damage"] = Math.Ceiling((luck * 0.6)).ToString() + "---" + Math.Ceiling((luck * 0.7)).ToString();
+                    result["health"] = Math.Ceiling((luck * 0.6)).ToString() + "---" + Math.Ceiling((luck * 0.7)).ToString();
                     break;
                 case ItemType.Legging:
-                    result["speed"] = (luck * 0.43).ToString() + "---" + (luck * 0.53).ToString();
-                    result["defence"] = (luck * 0.43).ToString() + "---" + (luck * 0.53).ToString();
-                    result["health"] = (luck * 0.43).ToString() + "---" + (luck * 0.53).ToString();
+                    result["speed"] = Math.Ceiling((luck * 0.43)).ToString() + "---" + Math.Ceiling((luck * 0.53)).ToString();
+                    result["defence"] = Math.Ceiling((luck * 0.43)).ToString() + "---" + Math.Ceiling((luck * 0.53)).ToString();
+                    result["health"] = Math.Ceiling((luck * 0.43)).ToString() + "---" + Math.Ceiling((luck * 0.53)).ToString();
                     break;
             }
             return result;

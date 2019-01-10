@@ -57,6 +57,13 @@ namespace FrontEnd
                 Client.Instance.Send(msg);
         }
 
+        public void ResetHP()
+        {
+            if (selfController == null)
+                return;
+            selfController.Damageable.currentHitPoints = selfController.Damageable.maxHitPoints;
+        }
+
         public void refreshAttr()
         {
             int old_health = health;
@@ -89,6 +96,8 @@ namespace FrontEnd
                     selfController.Damageable.maxHitPoints,
                     selfController.Damageable.currentHitPoints);
             }*/
+            if (selfController == null)
+                return;
             selfController.Damageable.maxHitPoints = health;
             selfController.Damageable.currentHitPoints = Math.Min(selfController.Damageable.maxHitPoints, selfController.Damageable.currentHitPoints);
         }

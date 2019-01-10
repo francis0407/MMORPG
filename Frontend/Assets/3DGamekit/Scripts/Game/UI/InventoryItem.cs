@@ -9,14 +9,17 @@ class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private FItem item;
     public AllItemInfoUI allItemInfoUI;
-
-    public void SetItem(FItem _item)
+    int mynum = 0;
+    public void SetItem(FItem _item, int num)
     {
         item = _item;
+        mynum = num;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (item == null)
+            return;
         allItemInfoUI.SetItemInfo(
             item.health_value.ToString(),
             item.damage_value.ToString(),
@@ -29,13 +32,15 @@ class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             "",
             false,
             item.silver_value.ToString(),
-            eventData.position);
+            eventData.position,
+            "inventory"+mynum.ToString());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         var rect_trans = GetComponentInParent<RectTransform>();
-        if (rect_trans.rect.Contains(eventData.position))
+        var _pos = Input.mousePosition;
+        if (rect_trans.rect.Contains(eventData.position) || rect_trans.rect.Contains(new Vector2(_pos.x, _pos.y)))
             return;
         allItemInfoUI.ResetActive(eventData.position);
     }

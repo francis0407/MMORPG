@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DSceneAsset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <scene>Level2</scene>
+    <entities>
+    <list>
+	  <DEntity>
+        <type>3</type>
+        <entityID>0</entityID>
+        <name>Staff</name>
+        <currentHP>0</currentHP>
+        <maxHP>0</maxHP>
+        <invTime>1</invTime>
+        <hitAngle>0</hitAngle>
+        <level>0</level>
+        <speed>0</speed>
+        <aggressive>false</aggressive>
+        <forClone>true</forClone>
+        <children />
+        <pos>
+          <x>23.95</x>
+          <y>3.578</y>
+          <z>60.29</z>
+        </pos>
+        <rot>
+          <x>-0.122787856</x>
+          <y>0.6963643</y>
+          <z>0.6963643</z>
+          <w>0.122787856</w>
+        </rot>
+      </DEntity>
+	  <DEntity>
+        <type>0</type>
+        <entityID>0</entityID>
+        <name>Ellen</name>
+        <currentHP>5</currentHP>
+        <maxHP>5</maxHP>
+        <invTime>5</invTime>
+        <hitAngle>360</hitAngle>
+        <level>0</level>
+        <speed>0</speed>
+        <aggressive>false</aggressive>
+        <forClone>true</forClone>
+        <children />
+        <pos>
+          <x>23.95</x>
+          <y>1.578</y>
+          <z>64.29</z>
+        </pos>
+        <rot>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
+          <w>1</w>
+        </rot>
+      </DEntity>
+    </list>
+	</entities>
+</DSceneAsset>

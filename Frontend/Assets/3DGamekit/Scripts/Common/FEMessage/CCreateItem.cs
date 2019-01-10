@@ -7,5 +7,6 @@ namespace Common
     {
         public CCreateItem() : base(Command.C_CREATE_ITEM) { }
         public int luck;
+        public bool fromFrontend = true;
     }
 }
