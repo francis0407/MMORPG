@@ -1,145 +1,20 @@
-# Welcome
+# 数据库课程作业
 
-这个项目来源于Unity Asset Store上的[3d-game-kit](https://assetstore.unity.com/packages/essentials/tutorial-projects/3d-game-kit-115747)。主要变更是为其增加了个后端服务器，使它变成了一个网络游戏。
+## 功能介绍
+以下功能全部都是做了后端同步的，没有做单独的前端功能。
 
-# How to Start
+1. 基本的注册、登录功能。
+2. 通过心跳确定登录状态，完成用户退出时的资源释放、数据库更新以及广播。
+3. 好友列表可以看到所有在线用户并接发消息，历史记录只在前端保留本次登录后的内容。
+4. 物品系统，物品的产生是通过打怪、碰撞武器台或者在商城购买。物品的属性皆有含义，生命值提供最大生命值，防御攻击力在战斗时参与计算，速度影响移动速度，智慧影响新获取的物品属性值。
+5. 物品可以出售给系统（销毁）以换取银币。装备可以穿戴到身上，同时穿戴两把武器后可获得攻击能力。物品同样可以放到交易市场寄售（不能撤回寄售）
+6. 玩家可以在商城出售购买物品。
+7. 修复了怪物和玩家的碰撞检测，修复了怪物的初始位置，取消了怪物的复活机制（复活后的重定位问题无法解决），重设了怪物的最大生命值以及攻击力，死亡后随机奖励击杀者银币或者装备。
+8. 玩家和怪物都可以攻击玩家，玩家击败玩家后，获取其1/3的银币。同步了玩家生命值的语义，左上角图标按照玩家生命值百分比更新。
+9. 同步了场景中的所有机关（包括恢复生命的盒子、压力板、可触碰的水晶、大门）。
+10. 增加了第二个关卡的进入机关（有Bug没修复好）
+## 数据库额外设计
 
-#### [安装Unity3d](https://store.unity.com/cn)
-
-#### [安装Visual Studio](https://visualstudio.microsoft.com/)
-
-#### [下载资源](https://share.weiyun.com/5nofemx)
-
-密码：wkwk6g
-
-资源文件中包括字体，3D模型，图片，音乐等资源
-
-#### 目录结构
-```
-MMORPG
-  |-- Backend                                            服务端
-        |-- Backend.sln                                  服务端解决方案文件
-        |-- Backend.csproj
-        |-- ....
-  |-- Frontend                                           客户端, Unity工程，可以用Unity Editor打开
-        |-- Assets
-            |-- 3DGamekit
-                  |-- Art                                资源文件
-                  |-- Scripts                            C#代码
-                  |-- ....
-            |-- BEAssets                                 从客户端导出的供后端使用的一些信息
-            |-- ....
-        |-- Library
-        |-- obj                                          客户端解决方案文件
-        |-- Packages
-        |-- Frontend.sln                                 
-        |-- Assembly-CSharp-Editor.csproj
-        |-- Assembly-CSharp.csproj
-        |-- NavMeshComponents.csproj
-        |-- SimpleSFXRuntime.csproj
-        |-- Skybox3DRuntime.csproj
-        |-- WorldBuildingRuntime.csproj
-        |-- ....
-  |-- MMORPG.sln  
-  |-- ....
-
-```
-#### 解压资源
-解压资源文件Art.zip到 *MMORPG\Frontend\Assets\3DGamekit* 目录下
-
-
-#### 使用Unity Editor导入项目
-
-启动Unity Editor， PROJECT --> OPEN --> 选择项目目录MMORPG\Frontend  
-
-Unity Editor会在MMORPG\Frontend文件夹下创建Library文件夹，存放依赖的库文件，也会重新导入资源文件
-
-#### 安装依赖库
-
-Backend用到了[GeometRi](https://github.com/RiSearcher/GeometRi.CSharp)，一个用于空间计算的library。进入项目目录:
-
-```
-dotnet add backend package GeometRi --version 1.3.5.3
-```
-
-#### 使用VS Build Backend
-
-#### 启动Backend
-
-- 更改配置文件backend.conf，<assetPath>改成自己的配置
-（在MMORPG/Frontend/Assets/assets下，这个文件夹存的是从客户端导出的一些信息, 例如： 每个场景的阻档点，精灵出生点坐标等）
-- 打开MMORPG.sln,发布bakcend项目（配置中将路径修改为自己的配置）
-- 将backend设为启动项目，在VS中启动Backend.exe，命令行参数为配置文件路径
-```
-backend.exe [path_to_backend.conf]
-```
-backend.exe运行大致如下：
->Backend start up and waiting for a connection on port 7777...
-
-#### 使用Unity3d Editor执行, 或build成APP执行
-- 选择场景：打开scene-level1/...
-- 点击上方小三角，进入调试
-
-#### 输入
-WASD移动  
-左键点击进行攻击  
-右键锁定视角  
-
-# Architecture
-<img src="Doc/architecture.png" height=114></img>
-
-# __Roadmap__
-
-##### __Asset导出__
-  - [x] Navmesh
-  - [x] 出生点坐标
-  - [x] Backend配置文件格式
-
-##### __网络__
-  - [x] 通信接口
-  - [x] 同屏全场景广播
-  - [ ] GRID广播
-
-##### __AI__
-  - [x] A\*寻路
-    - [x] 空间索引
-
-##### __登录和注册__
-  - [x] UI
-  - [x] 登录
-  - [x] 注册
-
-##### __商城__
-  - [x] UI
-  - [ ] 交易
-
-##### __聊天__
-  - [x] UI
-  - [x] 聊天逻辑
-
-##### __主角__
-  - [x] 走路
-  - [x] 攻击精灵
-  - [ ] 攻击其它人
-  - [x] 跳跃
-  - [x] 受伤
-  - [x] 出生
-  - [x] 死亡
-  - [x] 装备
-  - [ ] 背包
-  
-##### __精灵__
-  - [x] 走路
-  - [x] 攻击
-  - [x] 受伤
-  - [x] 出生
-  - [x] 死亡
-
-##### __物品__
-  - [ ] 可捡取物品
-  - [ ] 可破坏物品
-  - [ ] 机关
-  - [x] 装备
-
-##### __退出游戏__
-  - [x] Elegent Exit
+1. Account表与Player表分开，为了更好的业务扩展（最早是想尝试用自己写的kv引擎做Account表的，但是没来得及加网络模块）
+2. Player表记录了玩家的基本信息，玩家的位置、当前生命值等信息会定时更新刷盘，保证在不损耗大量性能的前提下，避免后端服务器宕机后的大幅度回档。
+3. Item和Market表在物品被使用、丢弃或者购买出售之后，不会删除记录，而会做标记，用于错误操作的恢复或者信息统计。在后端维护的时候进行清除，避免表中有大量无效数据影响查询性能。
